@@ -1,4 +1,4 @@
-package com.example.bellyfulapp;
+package com.bellyful.bellyfulapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 

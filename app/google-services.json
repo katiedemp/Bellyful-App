@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "498622649283",
+    "firebase_url": "https://bellyful-c75b4.firebaseio.com",
+    "project_id": "bellyful-c75b4",
+    "storage_bucket": "bellyful-c75b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498622649283:android:427ccdca8561f630f4e376",
+        "android_client_info": {
+          "package_name": "com.bellyful.bellyfulapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498622649283-h1ug3lvbhuukkhskgopabc3d6dibaoan.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY0m43kc14PdhoQWyc7W0Be_Wvwsg6Ncs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498622649283-h1ug3lvbhuukkhskgopabc3d6dibaoan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

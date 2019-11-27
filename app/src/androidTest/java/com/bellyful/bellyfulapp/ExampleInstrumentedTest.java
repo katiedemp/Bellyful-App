@@ -1,4 +1,4 @@
-package com.example.bellyfulapp;
+package com.bellyful.bellyfulapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.bellyfulapp", appContext.getPackageName());
+        assertEquals("com.bellyful.bellyfulapp", appContext.getPackageName());
     }
 }
