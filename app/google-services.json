@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "498622649283-va8lqfr2pdkjvoqgtms4k7nrsmt4kga3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bellyful.bellyfulapp",
+            "certificate_hash": "58ea1fc4d41f0bae756f40417c751fd30b8b7100"
+          }
+        },
+        {
           "client_id": "498622649283-h1ug3lvbhuukkhskgopabc3d6dibaoan.apps.googleusercontent.com",
           "client_type": 3
         }
