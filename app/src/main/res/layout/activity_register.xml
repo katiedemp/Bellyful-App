@@ -19,14 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/loginHeading"
+        <ImageView
+            android:id="@+id/logoImage"
+            android:src="@drawable/logo"
             android:layout_width="250dp"
             android:layout_height="150dp"
-            android:text="Bellyful"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            android:textStyle="bold"/>
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/editTextNewEmail"
@@ -65,8 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnCreateAccount"

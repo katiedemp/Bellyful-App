@@ -19,6 +19,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -107,8 +110,23 @@ public class RegisterActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegisterActivity.this, "Registration failed.",
+//                                    Toast.LENGTH_SHORT).show();
+                            //FirebaseAuth Exceptions
+                            try {
+                                throw task.getException();
+                            } catch(FirebaseAuthWeakPasswordException e) {
+                                editTextPassword.setError("Password must be at least 6 characters long");
+                                editTextPassword.requestFocus();
+                            } catch(FirebaseAuthInvalidCredentialsException e) {
+                                editTextEmail.setError("Invalid Email");
+                                editTextEmail.requestFocus();
+                            } catch(FirebaseAuthUserCollisionException e) {
+                                editTextEmail.setError("An account already exists with this email");
+                                editTextEmail.requestFocus();
+                            } catch(Exception e) {
+                                Log.e(TAG, e.getMessage());
+                            }
                             //updateUI(null);
                         }
 
@@ -123,31 +141,37 @@ public class RegisterActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(password)) {
             //Empty password
             editTextPassword.setError("Password required");
+            editTextPassword.requestFocus();
             valid = false;
         }
         if (TextUtils.isEmpty(confirmPassword)) {
             //Empty confirm password
             editTextConfirmPassword.setError("Please confirm password");
+            editTextConfirmPassword.requestFocus();
             valid = false;
         }
         if (TextUtils.isEmpty(email)) {
             //Empty email
             editTextEmail.setError("Email required");
+            editTextEmail.requestFocus();
             valid = false;
         }
         if(!password.equals(confirmPassword)){
             //Passwords don't match
             editTextPassword.setError("Passwords do not match");
+            editTextPassword.requestFocus();
             valid = false;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             //Invalid email
             editTextEmail.setError("Invalid email");
+            editTextEmail.requestFocus();
             valid = false;
         }
         if(password.length()<6){
             //Firebase requires password to be 6 characters long
             editTextPassword.setError("Your password must be at least 6 characters long");
+            editTextPassword.requestFocus();
             valid = false;
         }
         return valid;
