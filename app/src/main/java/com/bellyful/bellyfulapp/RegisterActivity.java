@@ -42,8 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
-
         mAuth = FirebaseAuth.getInstance(); //Initialize Firebase Auth
 
         initActivity();
@@ -60,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         registerProgressBar = findViewById(R.id.registerProgressBar);
 
+        //Register button click. Checks input is valid then creates an account
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,18 +75,18 @@ public class RegisterActivity extends AppCompatActivity {
                 if(isValid){
                     CreateAccount(email, password);
                 }else{
-                    //Some error
+                    //Some error occurred
                     registerProgressBar.setVisibility(View.GONE);
                 }
 
             }
         });
 
-
+        //Takes user to login screen
         goToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Start Register activity
+                //Start login activity
                 Intent startLoginIntent = new Intent(RegisterActivity.this, Login.class);
                 RegisterActivity.this.startActivity(startLoginIntent);
             }
@@ -106,13 +105,13 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(RegisterActivity.this, "User Created",
                                     Toast.LENGTH_SHORT).show();
-                           //updateUI(user);
+                           updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
 //                            Toast.makeText(RegisterActivity.this, "Registration failed.",
 //                                    Toast.LENGTH_SHORT).show();
-                            //FirebaseAuth Exceptions
+                            //Display relevant error from FirebaseAuth Exceptions
                             try {
                                 throw task.getException();
                             } catch(FirebaseAuthWeakPasswordException e) {
@@ -178,18 +177,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser user){
-        if(user != null) {
-            //Start next activity with user
+        if(user != null) { //Take user to MainActivity once registration is complete
+            //Start main activity
+            Intent startMainActivityIntent = new Intent(RegisterActivity.this, MainActivity.class);
+            RegisterActivity.this.startActivity(startMainActivityIntent);
         }else{
-            //initActivity();
+            //Something went wrong
         }
     }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        //updateUI(currentUser);
-//    }
 }

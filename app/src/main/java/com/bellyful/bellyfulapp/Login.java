@@ -29,13 +29,11 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private final String TAG = "debug";
 
-
     private Button login;
     private TextView registerHere;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private ProgressBar loginProgressBar;
-//    private ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +47,8 @@ public class Login extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUserEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         loginProgressBar = findViewById(R.id.loginProgressBar);
-//        logo.findViewById(R.id.logoImage);
-//        logo.setImageDrawable(R.drawable.logo);
 
-
+        //Login button click. Checks input is valid then logs user in
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +61,7 @@ public class Login extends AppCompatActivity {
                 if(isValid){
                     signIn(usernameText, passwordText);
                 }else{
-                    //Some error
+                    //Some error occurred
                     loginProgressBar.setVisibility(View.GONE);
                 }
             }
@@ -98,6 +94,7 @@ public class Login extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            //Display relevant error from FirebaseAuth Exceptions
                             try {
                                 throw task.getException();
                             } catch(FirebaseAuthInvalidUserException e) {

@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
+
         //--------FOR TESTING -------------
         Button signOutTest = findViewById(R.id.signout); //DEBUGGING
         signOutTest.setOnClickListener(new View.OnClickListener() {
@@ -32,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         });
         //----------------------------------------
 
-
-        mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
-        //FirebaseAuth.getInstance().signOut(); -- USE FOR SIGN OUT
     }
 
     private void updateUI(FirebaseUser currentUser){
