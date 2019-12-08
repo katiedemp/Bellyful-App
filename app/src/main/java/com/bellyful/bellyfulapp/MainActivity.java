@@ -1,7 +1,6 @@
 package com.bellyful.bellyfulapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth; //Firebase auth
-    private ActionBar toolbar;
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
 
     @Override
@@ -42,9 +40,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //----------------------------------------
-        //Bottom Navigation Bar
-        toolbar = getSupportActionBar();
 
+        //Bottom Navigation Bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(new NewJobsFragment());
