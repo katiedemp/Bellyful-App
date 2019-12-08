@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        loadFragment(new NewJobsFragment());
 
     }
 
@@ -53,24 +56,36 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
+            Fragment ft;
             switch (item.getItemId()) {
                 case R.id.action_new_jobs:
-                    toolbar.setTitle("New");
+                    ft = new NewJobsFragment();
+                    loadFragment(ft);
                     return true;
                 case R.id.action_current_jobs:
-                    toolbar.setTitle("Current");
+                    ft = new CurrentJobsFragment();
+                    loadFragment(ft);
                     return true;
                 case R.id.action_freezers:
-                    toolbar.setTitle("Freezers");
+                    ft = new FreezersFragment();
+                    loadFragment(ft);
                     return true;
                 case R.id.action_user:
-                    toolbar.setTitle("Profile");
+                    ft = new UserAccountFragment();
+                    loadFragment(ft);
                     return true;
             }
             return false;
         }
     };
+
+    private void loadFragment(Fragment fragment) {
+        //For making loading fragments easier and cleaner
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameContainer, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
 
     private void updateUI(FirebaseUser currentUser){
         if(currentUser == null){
