@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextTheme" parent="@android:style/TextAppearance">
+        <item name="android:textColorHighlight">@color/colorPrimaryDark</item>
+        <item name="android:textColorLink">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
