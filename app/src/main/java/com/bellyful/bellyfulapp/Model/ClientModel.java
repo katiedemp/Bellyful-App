@@ -1,16 +1,12 @@
 package com.bellyful.bellyfulapp.Model;
 
-import android.location.Address;
-
-import java.util.ArrayList;
-
-class ClientModel{
+class ClientModel extends DatabaseHelper{
 
     private String id;
     private String firstName;
     private String lastName;
     private String address;
-    private int phone;
+    private String phone;
     private String email;
     private boolean dogOnProperty;
     private int numAdults;
@@ -19,6 +15,11 @@ class ClientModel{
     private String allergies;
     private String branch;
     private String info;
+
+    //Constructor parameter tells the Database Helper which collection to use
+    public ClientModel() {
+        super("Client");
+    }
 
     public String getId() {
         return id;
@@ -52,11 +53,11 @@ class ClientModel{
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

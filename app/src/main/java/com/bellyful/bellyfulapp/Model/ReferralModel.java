@@ -1,17 +1,21 @@
 package com.bellyful.bellyfulapp.Model;
 
-public class ReferralsModel{
+public class ReferralModel extends DatabaseHelper{
     private String id;
     private String clientId;
     private String firstname;
     private String lastname;
     private String refferingAs;
     private String organisation;
-    private int phone;
+    private String phone;
     private String email;
     private String town;
-    private String permission;
+    private Boolean permission;
     private String hearAboutUs;
+
+    public ReferralModel() {
+        super("Referral");
+    }
 
     public String getId() {
         return id;
@@ -26,6 +30,7 @@ public class ReferralsModel{
     }
 
     public void setClientId(String clientId) {
+        //TODO: Check this exists before setting
         this.clientId = clientId;
     }
 
@@ -61,11 +66,11 @@ public class ReferralsModel{
         this.organisation = organisation;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -85,11 +90,11 @@ public class ReferralsModel{
         this.town = town;
     }
 
-    public String getPermission() {
+    public Boolean getPermission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
+    public void setPermission(Boolean permission) {
         this.permission = permission;
     }
 
