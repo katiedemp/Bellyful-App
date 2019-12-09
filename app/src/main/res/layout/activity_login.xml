@@ -54,7 +54,9 @@ tools:context=".Login">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress"/>
 
     <Button
         android:id="@+id/btnLogin"
