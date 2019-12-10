@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,10 @@ public class NewJobsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public NewJobsFragment() {
         // Required empty public constructor
@@ -60,13 +66,23 @@ public class NewJobsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //Init NewJobRecycler
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_new_jobs, null);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.NewJobRecycler);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity());
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_jobs, container, false);
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
