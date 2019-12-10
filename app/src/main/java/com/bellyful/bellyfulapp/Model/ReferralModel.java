@@ -3,8 +3,8 @@ package com.bellyful.bellyfulapp.Model;
 public class ReferralModel extends DatabaseHelper{
     private String id;
     private String clientId;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String refferingAs;
     private String organisation;
     private String phone;
@@ -34,20 +34,20 @@ public class ReferralModel extends DatabaseHelper{
         this.clientId = clientId;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getRefferingAs() {
