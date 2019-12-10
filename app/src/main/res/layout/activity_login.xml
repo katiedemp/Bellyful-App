@@ -27,19 +27,21 @@ tools:context=".Login">
 
     <EditText
         android:id="@+id/editTextUserEmail"
+        android:theme="@style/TextTheme"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:padding="5dp"
         android:background="@drawable/textbox_background"
         android:drawableStart="@drawable/ic_person_outline_black_24dp"
         android:ems="10"
+        android:hint="@string/email"
         android:inputType="textWebEmailAddress"
-        android:hint="@string/email" />
+        android:padding="5dp" />
 
 
     <EditText
         android:id="@+id/editTextPassword"
+        android:theme="@style/TextTheme"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -54,7 +56,9 @@ tools:context=".Login">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress"/>
 
     <Button
         android:id="@+id/btnLogin"
