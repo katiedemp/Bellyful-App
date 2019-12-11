@@ -14,5 +14,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="i_can_do_that">I Can Do That!</string>
+    <string name="i_can_do_this">I Can Do This!</string>
+    <string name="title_activity_current_jobs_fragment1">CurrentJobsFragment1</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="my_confirmed">My Confirmed</string>
+    <string name="my_outstanding">My Outstanding</string>
+    <string name="branch_outstanding">Branch Outstanding</string>
 </resources>

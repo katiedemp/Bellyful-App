@@ -7,7 +7,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
+        android:id="@+id/frameContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -18,11 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
-            android:foreground="?attr/selectableItemBackground"
-            app:itemIconTint="@color/colorPrimaryDark"
-            app:itemTextColor="@color/colorPrimaryDark"
-            app:menu="@menu/bottom_nav_menu" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:foreground="?attr/selectableItemBackground" />
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

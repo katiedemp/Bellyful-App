@@ -6,9 +6,34 @@
     tools:context=".CurrentJobsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/currentJobsViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Current Deliveries" />
+        android:layout_height="match_parent" >
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/currentJobTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/myConfirmedTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_confirmed" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/myOutstandingTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_outstanding" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/branchOutstandingTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/branch_outstanding" />
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.viewpager.widget.ViewPager>
 
 </FrameLayout>
