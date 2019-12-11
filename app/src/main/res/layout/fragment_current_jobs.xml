@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CurrentJobsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/currentJobsViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/currentJobTabLayout"
@@ -36,4 +37,4 @@
         </com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>
 
-</FrameLayout>
+</LinearLayout>
