@@ -29,18 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
 
-        //--------FOR TESTING -------------
-        Button signOutTest = findViewById(R.id.signout); //DEBUGGING
-        signOutTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                onStart();
-
-            }
-        });
-        //----------------------------------------
-
         //Bottom Navigation Bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

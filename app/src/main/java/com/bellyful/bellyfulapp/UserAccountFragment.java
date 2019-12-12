@@ -1,6 +1,7 @@
 package com.bellyful.bellyfulapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +30,7 @@ public class UserAccountFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private FirebaseAuth mAuth; //Firebase auth
+    FirebaseUser currentUser;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,6 +68,8 @@ public class UserAccountFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
+        currentUser = mAuth.getCurrentUser();
+
     }
 
     @Override
@@ -73,6 +77,19 @@ public class UserAccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user_account, container, false);
+
+        //Sign out Button
+        Button signOutTest = v.findViewById(R.id.signout);
+        signOutTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), Login.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
         return v;
     }
 

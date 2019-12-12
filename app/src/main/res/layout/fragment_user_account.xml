@@ -7,6 +7,15 @@
     android:fitsSystemWindows="true"
     tools:context=".UserAccountFragment">
 
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:text="Sign Out" />
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -14,7 +23,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="50dp"
-        android:background="@color/colorPrimary" />
+        android:background="@drawable/profile_bg"/>
 
     <ScrollView
         android:id="@+id/scrollView_account"
@@ -71,20 +80,10 @@
                         android:text="Phone Number:"
                         android:textSize="20sp" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="100dp"
-                    android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="30dp"
                         android:text="Delivery Statistics"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -93,22 +92,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:text="Number of Deliveries Completed:"/>
+                        android:text="Number of Deliveries Completed:"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:text="Total Distance Travelled:"/>
+                        android:text="Total Distance Travelled:"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:text="Number of Meals Delivered:"/>
+                        android:text="Number of Meals Delivered:"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -117,18 +116,18 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="25dp"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:padding="25dp">
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/profile"
-                    app:civ_border_color="#000"
+                    app:civ_border_color="@android:color/white"
                     app:civ_border_width="4dp"
                     app:civ_shadow="true"
-                    app:civ_shadow_radius="10"
-                    app:civ_shadow_color="@color/colorPrimaryDark"/>
+                    app:civ_shadow_color="@color/colorPrimaryDark"
+                    app:civ_shadow_radius="10" />
 
             </RelativeLayout>
 
