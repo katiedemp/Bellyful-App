@@ -12,6 +12,10 @@
     <string name="freezers">Freezers</string>
     <string name="account_info">Account</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Freezer Fragment -->
+    <string name="freezer_details">Freezer Details</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="freezer_stock">Freezer Stock</string>
 </resources>

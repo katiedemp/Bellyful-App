@@ -7,12 +7,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;;
 import android.widget.Toast;
 
 
+import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth; //Firebase auth
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
+    Fragment ft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment ft;
             switch (item.getItemId()) {
                 case R.id.action_new_jobs:
                     ft = new NewJobsFragment();
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         //For making loading fragments easier and cleaner
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameContainer, fragment);
