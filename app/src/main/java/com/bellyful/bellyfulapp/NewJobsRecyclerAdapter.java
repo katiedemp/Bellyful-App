@@ -23,7 +23,7 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
     @Override
     public NewJobViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewGroup viewGroup;
-        viewGroup = (ViewGroup) mInflater.inflate((R.layout.new_job_list_items), parent, false);
+        viewGroup = (ViewGroup) mInflater.inflate((R.layout.list_item_new_jobs), parent, false);
         NewJobViewHolder vh = new NewJobViewHolder(viewGroup);
         return vh;
     }

@@ -43,8 +43,8 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     //Rounded ImageView
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.mikhaellopez:circularimageview:4.1.1'
+
 
 }
 

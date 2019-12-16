@@ -21,4 +21,10 @@
     <string name="my_confirmed">My Confirmed</string>
     <string name="my_outstanding">My Outstanding</string>
     <string name="branch_outstanding">Branch Outstanding</string>
+    <string name="my_outstanding_deliveries">My Outstanding Deliveries</string>
+    <string name="branch_outstanding_deliveries">Branch Outstanding Deliveries</string>
+    <string name="arrow_left"><![CDATA[>]]></string>
+    <string name="call">Call</string>
+    <string name="text">Text</string>
+    <string name="my_confirmed_deliveries">My Confirmed Deliveries</string>
 </resources>

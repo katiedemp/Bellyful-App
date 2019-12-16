@@ -8,9 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bellyful.bellyfulapp.CurrentJobsUI.BranchJobTab;
+import com.bellyful.bellyfulapp.CurrentJobsUI.ConfirmedJobTab;
+import com.bellyful.bellyfulapp.CurrentJobsUI.CurrentJobViewPagerAdapter;
+import com.bellyful.bellyfulapp.CurrentJobsUI.OutstandingJobTab;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -75,16 +80,17 @@ public class CurrentJobsFragment extends Fragment {
     public void onViewCreated (View view, Bundle savedInstanceState) {
 
         //Inflate ViewPager tabs
-        ViewPager viewPager = (ViewPager) getView().findViewById(R.id.currentJobsViewPager);
-        TabLayout tabLayout = getView().findViewById(R.id.currentJobTabLayout);
+        final ViewPager viewPager = view.findViewById(R.id.currentJobsViewPager);
+        TabLayout tabLayout = view.findViewById(R.id.currentJobTabLayout);
         CurrentJobViewPagerAdapter viewPagerAdapter = new CurrentJobViewPagerAdapter(getChildFragmentManager());
 
-        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "Confirmed Jobs");
-        viewPagerAdapter.addFragment(new OutstandingJobTab(), "Outstanding Jobs");
-        viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding Jobs");
+        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
+        viewPagerAdapter.addFragment(new OutstandingJobTab(), "My Outstanding");
+        viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
         viewPager.setAdapter(viewPagerAdapter);
-
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
