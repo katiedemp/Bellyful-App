@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
@@ -24,7 +26,7 @@ import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class FreezersUpdateFragment extends Fragment {
+public class FreezersUpdateFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -63,6 +65,12 @@ public class FreezersUpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_freezersupdate_list, container, false);
 
+        //Set buttons
+        Button mealsTaken = view.findViewById(R.id.taken_button);
+        Button mealsAdded = view.findViewById(R.id.added_button);
+        mealsTaken.setOnClickListener(this);
+        mealsAdded.setOnClickListener(this);
+
         //Set the Toolbar
         Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.freezers_stock);
@@ -74,24 +82,32 @@ public class FreezersUpdateFragment extends Fragment {
             }
         });
 
-        /* Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }*/
-
+        // Set the adapter
         RecyclerView recyclerView = view.findViewById(R.id.update_list);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(DummyContent.ITEMS, mListener));
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Fragment fragment;
+        switch (view.getId()) {
+            case R.id.taken_button:
+            case R.id.added_button:
+                fragment = new FreezerConfirmFragment();
+                replaceFragment(fragment);
+                break;
+        }
+    }
+
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameContainer, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 
@@ -111,6 +127,7 @@ public class FreezersUpdateFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

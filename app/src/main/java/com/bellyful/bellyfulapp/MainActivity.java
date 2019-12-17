@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener {
 
     private FirebaseAuth mAuth; //Firebase auth
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
@@ -125,4 +126,8 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
