@@ -122,8 +122,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 
     @Override
     public void onListFreezersUpdateFragmentInteraction(DummyContent.DummyItem item) {
-        ft = new FreezersUpdateFragment();
-        loadFragment(ft);
+
     }
 
 }

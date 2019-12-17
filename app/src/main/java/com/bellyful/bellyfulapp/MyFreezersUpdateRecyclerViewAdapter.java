@@ -67,7 +67,7 @@ public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<My
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.content);
+            mContentView = view.findViewById(R.id.freezer_meal);
         }
 
         @Override

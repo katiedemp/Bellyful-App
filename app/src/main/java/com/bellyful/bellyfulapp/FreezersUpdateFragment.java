@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
 
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -64,18 +63,6 @@ public class FreezersUpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_freezersupdate_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
-
         //Set the Toolbar
         Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.freezers_stock);
@@ -86,6 +73,24 @@ public class FreezersUpdateFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
+        /* Set the adapter
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        }*/
+
+        RecyclerView recyclerView = view.findViewById(R.id.update_list);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
         return view;
     }
 
