@@ -1,4 +1,4 @@
-package com.bellyful.bellyfulapp.FreezersUI;
+package com.bellyful.bellyfulapp.Freezers;
 
 import androidx.recyclerview.widget.RecyclerView;
 

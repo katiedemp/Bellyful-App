@@ -1,4 +1,4 @@
-package com.bellyful.bellyfulapp.FreezersUI;
+package com.bellyful.bellyfulapp.Freezers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -63,7 +63,7 @@ public class FreezersUpdateFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_freezersupdate_list, container, false);
+        View view = inflater.inflate(R.layout.list_fragment_freezersupdate, container, false);
 
         //Set buttons
         Button mealsTaken = view.findViewById(R.id.taken_button);

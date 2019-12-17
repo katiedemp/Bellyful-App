@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bellyful.bellyfulapp.FreezersUI.MyFreezersRecyclerViewAdapter;
+import com.bellyful.bellyfulapp.Freezers.MyFreezersRecyclerViewAdapter;
 import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
 
@@ -61,7 +61,7 @@ public class FreezersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_freezers_list, container, false);
+        View view = inflater.inflate(R.layout.list_fragment_freezers, container, false);
 
         //Set the Toolbar
         Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
