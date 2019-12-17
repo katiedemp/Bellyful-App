@@ -40,7 +40,7 @@ public class DummyContent {
     }
 
     private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Stock " + position, makeDetails(position));
+        return new DummyItem(String.valueOf(position), "ID " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
