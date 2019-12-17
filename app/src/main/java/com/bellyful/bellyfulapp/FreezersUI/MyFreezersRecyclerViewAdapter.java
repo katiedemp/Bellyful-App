@@ -1,4 +1,4 @@
-package com.bellyful.bellyfulapp;
+package com.bellyful.bellyfulapp.FreezersUI;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bellyful.bellyfulapp.FreezersFragment.OnListFragmentInteractionListener;
+import com.bellyful.bellyfulapp.R;
 import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
 
 import java.util.List;
