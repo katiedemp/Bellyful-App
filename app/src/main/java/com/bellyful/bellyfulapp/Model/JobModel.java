@@ -1,6 +1,6 @@
 package com.bellyful.bellyfulapp.Model;
 
-class JobModel extends DatabaseHelper{
+public class JobModel extends DatabaseHelper{
 
     private String id;
     private String volunteerId;

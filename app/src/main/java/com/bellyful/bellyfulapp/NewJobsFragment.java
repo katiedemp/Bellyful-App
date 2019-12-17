@@ -73,13 +73,20 @@ public class NewJobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //____Testing_____
+        TestData test = new TestData(4);
+        //__________________
+
         //Init NewJobRecycler
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_new_jobs, null);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.NewJobRecycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity());
+        //TODO: Send real data to the recycler adapter
+        mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity(), test.mJobArray);
         mRecyclerView.setAdapter(mRecyclerAdapter);
+
+
 
         // Inflate the layout for this fragment
         return root;
