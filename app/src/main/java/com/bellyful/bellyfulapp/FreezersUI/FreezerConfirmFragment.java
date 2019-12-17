@@ -1,28 +1,27 @@
-package com.bellyful.bellyfulapp;
+package com.bellyful.bellyfulapp.FreezersUI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bellyful.bellyfulapp.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewJobsFragment.OnFragmentInteractionListener} interface
+ * {@link FreezerConfirmFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewJobsFragment#newInstance} factory method to
+ * Use the {@link FreezerConfirmFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewJobsFragment extends Fragment {
+public class FreezerConfirmFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +33,7 @@ public class NewJobsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NewJobsFragment() {
+    public FreezerConfirmFragment() {
         // Required empty public constructor
     }
 
@@ -44,11 +43,11 @@ public class NewJobsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewJobsFragment.
+     * @return A new instance of fragment FreezerConfirmFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewJobsFragment newInstance(String param1, String param2) {
-        NewJobsFragment fragment = new NewJobsFragment();
+    public static FreezerConfirmFragment newInstance(String param1, String param2) {
+        FreezerConfirmFragment fragment = new FreezerConfirmFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,21 +68,7 @@ public class NewJobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_new_jobs, container, false);
-
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("New Deliveries");
-        //Set the Toolbar
-        Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
-        toolbar.setTitle(R.string.new_deliveries);
-        /*toolbar.setNavigationIcon(R.drawable.ic_back_button);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });*/
-
-        return v;
+        return inflater.inflate(R.layout.fragment_freezer_confirm, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -96,13 +81,12 @@ public class NewJobsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = null;
-        /*if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }*/
+        }
     }
 
     @Override

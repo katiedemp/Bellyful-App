@@ -8,10 +8,21 @@
     <string name="register">Register</string>
     <string name="or_login">Or login</string>
     <string name="new_jobs">New</string>
+    <string name="new_deliveries">New Deliveries</string>
     <string name="current_jobs">Current</string>
+    <string name="current_deliveries">Current Deliveries</string>
     <string name="freezers">Freezers</string>
+    <string name="freezers_stock">Freezer Stock</string>
     <string name="account_info">Account</string>
+
+    <!-- Freezer Fragment -->
+    <string name="freezer_details">Freezer Details</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="freezer_stock">Freezer Stock</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="blank">.</string>
 </resources>

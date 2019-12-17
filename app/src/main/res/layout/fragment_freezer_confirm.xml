@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FreezersUI.FreezerConfirmFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/freezer_owner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Freezer Owner"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Taking"
+            android:textColor="@color/colorGrey"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Lasagna x3"
+            android:textColor="@color/colorGrey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Mac and Cheese x3"
+            android:textColor="@color/colorGrey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Vege Soup x3"
+            android:textColor="@color/colorGrey"
+            android:textSize="20sp" />
+
+
+        <Button
+            android:id="@+id/note_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/colorYellow"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Add Note"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/colorGreen"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Confirm"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</FrameLayout>
