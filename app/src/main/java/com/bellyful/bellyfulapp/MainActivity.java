@@ -9,13 +9,12 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bellyful.bellyfulapp.FreezersUI.FreezerConfirmFragment;
-import com.bellyful.bellyfulapp.FreezersUI.FreezersUpdateFragment;
+import com.bellyful.bellyfulapp.Freezers.FreezerConfirmFragment;
+import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment;
 import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     private ArrayList<JobData> newJobList = new ArrayList<>();
 
     Toolbar mToolbar;
-    TextView mToolbarText;
     Fragment ft;
 
     @Override
