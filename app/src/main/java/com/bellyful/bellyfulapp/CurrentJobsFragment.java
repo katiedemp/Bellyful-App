@@ -91,6 +91,7 @@ public class CurrentJobsFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
