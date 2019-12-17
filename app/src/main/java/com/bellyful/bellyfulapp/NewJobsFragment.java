@@ -1,5 +1,6 @@
 package com.bellyful.bellyfulapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -99,6 +102,21 @@ public class NewJobsFragment extends Fragment {
         createRecyclerView();
 
         // Inflate the layout for this fragment
+//        View v = inflater.inflate(R.layout.fragment_new_jobs, container, false);
+
+        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("New Deliveries");
+        //Set the Toolbar
+        Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
+        toolbar.setTitle(R.string.new_deliveries);
+        /*toolbar.setNavigationIcon(R.drawable.ic_back_button);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });*/
+
+//        return v;
         return root;
     }
 
@@ -135,8 +153,6 @@ public class NewJobsFragment extends Fragment {
 //                startActivity(intent);
             }
         });
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
