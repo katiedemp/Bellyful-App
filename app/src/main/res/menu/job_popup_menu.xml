@@ -7,4 +7,7 @@
     <item
         android:id="@+id/menuItemText"
         android:title="@string/text" />
+    <item
+        android:id="@+id/moreOptions"
+        android:title="More Options" />
 </menu>

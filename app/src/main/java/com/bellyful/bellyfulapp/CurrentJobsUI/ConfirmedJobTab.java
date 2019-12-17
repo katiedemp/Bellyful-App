@@ -38,7 +38,7 @@ public class ConfirmedJobTab extends Fragment {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.myConfirmedRecycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity());
+        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 0, getFragmentManager());
         mRecyclerView.setAdapter(mRecyclerAdapter);
         return root;
     }

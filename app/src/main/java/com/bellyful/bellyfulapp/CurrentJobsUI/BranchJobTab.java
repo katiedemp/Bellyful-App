@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.MainActivity;
 import com.bellyful.bellyfulapp.R;
 
 public class BranchJobTab extends Fragment {
@@ -34,7 +35,7 @@ public class BranchJobTab extends Fragment {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.branchOutstandingRecycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity());
+        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 2, getFragmentManager());
         mRecyclerView.setAdapter(mRecyclerAdapter);
         return root;
     }

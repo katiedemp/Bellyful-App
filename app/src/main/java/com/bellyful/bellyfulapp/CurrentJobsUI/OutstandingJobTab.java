@@ -36,7 +36,7 @@ public class OutstandingJobTab extends Fragment {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.myOutstandingRecycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity());
+        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 1, getFragmentManager());
         mRecyclerView.setAdapter(mRecyclerAdapter);
         return root;
     }

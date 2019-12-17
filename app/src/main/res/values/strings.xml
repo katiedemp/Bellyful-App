@@ -27,4 +27,5 @@
     <string name="call">Call</string>
     <string name="text">Text</string>
     <string name="my_confirmed_deliveries">My Confirmed Deliveries</string>
+    <string name="new_deliveries">New Deliveries</string>
 </resources>
