@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="2"
-                android:text="Meal Name"
+                android:text="@string/meal_name"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="16sp"/>
 
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="x20"
+                android:text="@string/x2"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="15sp"/>
 
@@ -57,7 +57,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:onClick="action_decrement"
-                android:text="-"
+                android:text="@string/minus"
                 android:textSize="15sp"
                 android:background="@drawable/freezer_border"/>
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:inputType="text"
-                android:text="0"
+                android:text="@string/_0"
                 android:textSize="16sp" />
 
             <Button
@@ -76,7 +76,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:onClick="action_increment"
-                android:text="+"
+                android:text="@string/add"
                 android:textSize="15sp"
                 android:background="@drawable/freezer_border"/>
         </LinearLayout>

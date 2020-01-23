@@ -86,7 +86,7 @@
                 android:layout_margin="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Las x10"
+                android:text="@string/meal_1"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="14sp" />
             <TextView
@@ -96,7 +96,7 @@
                 android:layout_margin="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="M&amp;C x10"
+                android:text="@string/meal_2"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="14sp" />
             <TextView
@@ -106,7 +106,7 @@
                 android:layout_margin="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Vege x5"
+                android:text="@string/meal_3"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="14sp" />
         </LinearLayout>

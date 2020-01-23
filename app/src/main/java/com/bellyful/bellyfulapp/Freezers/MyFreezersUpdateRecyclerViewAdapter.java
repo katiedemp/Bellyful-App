@@ -9,21 +9,21 @@ import android.widget.TextView;
 
 import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment.OnListFragmentInteractionListener;
 import com.bellyful.bellyfulapp.R;
-import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
+import com.bellyful.bellyfulapp.Freezers.FreezerContent.FreezerItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link FreezerItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<MyFreezersUpdateRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<FreezerItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyFreezersUpdateRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyFreezersUpdateRecyclerViewAdapter(List<FreezerItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -62,13 +62,22 @@ public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<My
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public FreezerItem mItem;
+        public TextView mNameView;
+        public TextView mMeal1View;
+        public TextView mMeal2View;
+        public TextView mMeal3View;
+
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.item_number);
             mContentView = view.findViewById(R.id.freezer_meal);
+            mNameView = view.findViewById(R.id.freezer_owner);
+            mMeal1View = view.findViewById(R.id.freezer_meal1);
+            mMeal2View = view.findViewById(R.id.freezer_meal2);
+            mMeal3View = view.findViewById(R.id.freezer_meal3);
         }
 
         @Override

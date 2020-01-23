@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.bellyful.bellyfulapp.Freezers.FreezerConfirmFragment;
 import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment;
-import com.bellyful.bellyfulapp.dummy.DummyContent;
+import com.bellyful.bellyfulapp.Freezers.FreezerContent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -126,13 +126,13 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(FreezerContent.FreezerItem item) {
         ft = new FreezersUpdateFragment();
         loadFragment(ft);
     }
 
     @Override
-    public void onListFreezersUpdateFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFreezersUpdateFragmentInteraction(FreezerContent.FreezerItem item) {
 
     }
 

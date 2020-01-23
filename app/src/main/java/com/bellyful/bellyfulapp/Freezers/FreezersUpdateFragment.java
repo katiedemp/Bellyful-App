@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bellyful.bellyfulapp.R;
-import com.bellyful.bellyfulapp.dummy.DummyContent;
-import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
+import com.bellyful.bellyfulapp.Freezers.FreezerContent;
+import com.bellyful.bellyfulapp.Freezers.FreezerContent.FreezerItem;
 
 
 /**
@@ -86,7 +86,7 @@ public class FreezersUpdateFragment extends Fragment implements View.OnClickList
         RecyclerView recyclerView = view.findViewById(R.id.update_list);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        recyclerView.setAdapter(new MyFreezersUpdateRecyclerViewAdapter(FreezerContent.ITEMS, mListener));
 
         return view;
     }
@@ -141,6 +141,6 @@ public class FreezersUpdateFragment extends Fragment implements View.OnClickList
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFreezersUpdateFragmentInteraction(DummyItem item);
+        void onListFreezersUpdateFragmentInteraction(FreezerItem item);
     }
 }
