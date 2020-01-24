@@ -34,7 +34,7 @@
             android:paddingEnd="20dp"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="16dp"
-            android:text="Freezer Owner"
+            android:text="@string/freezer_owner"
             android:textColor="@color/colorGrey"
             android:textSize="20sp" />
     </LinearLayout>
@@ -53,7 +53,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:text="Taken"
+            android:text="@string/taken"
             android:textSize="15sp" />
 
         <Button
@@ -63,7 +63,7 @@
             android:layout_toEndOf="@+id/taken_button"
             android:layout_weight="1"
             android:backgroundTint="@color/colorBlue"
-            android:text="Added"
+            android:text="@string/added"
             android:textSize="15sp" />
     </LinearLayout>
 

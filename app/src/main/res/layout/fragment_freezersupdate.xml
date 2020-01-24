@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/freezer_update_fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,10 +35,10 @@
 
             <TextView
                 android:id="@+id/freezer_meal_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_weight="2"
+                android:layout_marginStart="10dp"
                 android:text="@string/meal_name"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="16sp"/>

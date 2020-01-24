@@ -39,13 +39,15 @@ public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreeze
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
         holder.mNameView.setText(mValues.get(position).name);
         holder.mAddressView.setText(mValues.get(position).address);
         holder.mPhoneView.setText(mValues.get(position).phone);
         holder.mMeal1View.setText(mValues.get(position).meal1);
         holder.mMeal2View.setText(mValues.get(position).meal2);
         holder.mMeal3View.setText(mValues.get(position).meal3);
+        holder.mMealQty1View.setText(mValues.get(position).mealQty1);
+        holder.mMealQty2View.setText(mValues.get(position).mealQty2);
+        holder.mMealQty3View.setText(mValues.get(position).mealQty3);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,9 @@ public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreeze
         public TextView mMeal1View;
         public TextView mMeal2View;
         public TextView mMeal3View;
+        public TextView mMealQty1View;
+        public TextView mMealQty2View;
+        public TextView mMealQty3View;
 
         public ViewHolder(View view) {
             super(view);
@@ -87,6 +92,9 @@ public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreeze
             mMeal1View = view.findViewById(R.id.freezer_meal1);
             mMeal2View = view.findViewById(R.id.freezer_meal2);
             mMeal3View = view.findViewById(R.id.freezer_meal3);
+            mMealQty1View = view.findViewById(R.id.freezer_mealQty1);
+            mMealQty2View = view.findViewById(R.id.freezer_mealQty2);
+            mMealQty3View = view.findViewById(R.id.freezer_mealQty3);
 
 
         }

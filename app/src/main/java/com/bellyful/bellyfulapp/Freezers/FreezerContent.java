@@ -31,51 +31,40 @@ public class FreezerContent {
     }
 
     private static FreezerContent.FreezerItem createFreezerItem(int position) {
-        return new FreezerContent.FreezerItem(String.valueOf(position), "ID " + position, makeDetails(position));
+        return new FreezerContent.FreezerItem(String.valueOf(position));
     }
 
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
-    }
 
     /**
      * A dummy item representing a piece of content.
      */
     public static class FreezerItem {
         public final String id;
-        public final String content;
-        public final String details;
         public String name;
         public String address;
         public String phone;
         public String meal1;
+        public String mealQty1;
         public String meal2;
+        public String mealQty2;
         public String meal3;
+        public String mealQty3;
 
-        public FreezerItem(String id, String content, String details) {
+        public FreezerItem(String id) {
             this.id = id;
             int i = Integer.parseInt(id);
-            this.content = content;
-            this.details = details;
             this.name = DataGenerator.generateName(i);
             this.address = DataGenerator.generateAddress(i);
             this.phone = "021 " + i + " 22 33" + i;
             this.meal1 = DataGenerator.generateMeals(i);
+            this.mealQty1 = DataGenerator.generateMealQty(i);
             i++;
             this.meal2 = DataGenerator.generateMeals(i);
+            this.mealQty2 = DataGenerator.generateMealQty(i);
             i++;
             this.meal3 = DataGenerator.generateMeals(i);
+            this.mealQty3 = DataGenerator.generateMealQty(i);
 
-        }
-
-        @Override
-        public String toString() {
-            return content;
         }
     }
 
@@ -95,6 +84,8 @@ public class FreezerContent {
                     return "John";
                 case 5:
                     return "Lee";
+                case 6:
+                    return "Steve";
                 default:
                     return "Name:";
             }
@@ -114,6 +105,8 @@ public class FreezerContent {
                     return "21 Koru Dr";
                 case 5:
                     return "13B Bays Cr";
+                case 6:
+                    return "24 North St";
                 default:
                     return "Address:";
             }
@@ -122,19 +115,42 @@ public class FreezerContent {
         public static String generateMeals(int index) {
             switch (index) {
                 case 0:
-                    return "Las x1";
+                    return "Las";
                 case 1:
-                    return "M&C x2";
+                    return "M&C";
                 case 2:
-                    return "Bol x2";
+                    return "Bol";
                 case 3:
-                    return "Las x3";
+                    return "Veg Soup";
                 case 4:
-                    return "M&C x4";
+                    return "Chick Soup";
                 case 5:
-                    return "Bol x1";
+                    return "Veg Las";
+                case 6:
+                    return "Curry";
                 default:
                     return "Name:";
+            }
+        }
+
+        public static String generateMealQty(int index) {
+            switch (index) {
+                case 0:
+                    return "1";
+                case 1:
+                    return "2";
+                case 2:
+                    return "3";
+                case 3:
+                    return "4";
+                case 4:
+                    return "5";
+                case 5:
+                    return "6";
+                case 6:
+                    return "7";
+                default:
+                    return "Qty:";
             }
         }
     }
