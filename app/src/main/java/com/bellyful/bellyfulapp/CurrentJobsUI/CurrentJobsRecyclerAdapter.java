@@ -54,7 +54,7 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewJobViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final NewJobViewHolder viewHolder, final int position) {
         //TODO: Set to null first
         viewHolder.foodLabel.setText("");
         viewHolder.addressLabel.setText("");
@@ -67,6 +67,23 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
             viewHolder.phoneLabel.setText(currentItem.phone);
             viewHolder.foodLabel.setText(currentItem.meals);
         }
+
+//        if(mCode == 1){
+//            viewHolder.startButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    viewHolder.startButton.setVisibility(View.GONE);
+//                    viewHolder.completeButton.setVisibility(View.VISIBLE);
+//                }
+//            });
+//            viewHolder.completeButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    mOutstandingJobs.remove(position);
+//                    notifyDataSetChanged();
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -80,18 +97,39 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         TextView addressLabel;
         TextView phoneLabel;
         TextView foodLabel;
+        Button startButton;
+        Button completeButton;
 
         public NewJobViewHolder(@NonNull View itemView) {
             super(itemView);
-
             nameLabel = itemView.findViewById(R.id.lblJobName);
             addressLabel = itemView.findViewById(R.id.lblJobAddress);
             phoneLabel = itemView.findViewById(R.id.lblJobPhone);
             foodLabel = itemView.findViewById(R.id.lblJobFood);
+            startButton = itemView.findViewById(R.id.btnStart);
+            completeButton = itemView.findViewById(R.id.btnComplete);
 
             //Dropdown button for outstanding jobs
             if(mCode == 1) {
                 final Button dropDownButton = itemView.findViewById(R.id.btnOptions);
+
+                startButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startButton.setVisibility(View.GONE);
+                        completeButton.setVisibility(View.VISIBLE);
+                        notifyDataSetChanged();
+                    }
+                });
+                completeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mOutstandingJobs.remove(getAdapterPosition());
+                        notifyDataSetChanged();
+                        startButton.setVisibility(View.VISIBLE);
+                        completeButton.setVisibility(View.GONE);
+                    }
+                });
 
                 dropDownButton.setOnClickListener(new View.OnClickListener() {
                     @Override

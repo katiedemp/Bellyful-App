@@ -145,6 +145,8 @@ public class Login extends AppCompatActivity {
             //Start main activity
             Intent startMainIntent = new Intent(Login.this, MainActivity.class);
             Login.this.startActivity(startMainIntent);
+        }else{
+            Log.d(TAG, "Something went wrong");
         }
     }
 

@@ -114,7 +114,6 @@ public class CurrentJobsFragment extends Fragment {
 
 //        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
         viewPagerAdapter.addFragment(new OutstandingJobTab(), "My Outstanding");
-
         viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
