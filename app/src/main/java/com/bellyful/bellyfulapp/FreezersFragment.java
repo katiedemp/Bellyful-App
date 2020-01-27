@@ -14,9 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bellyful.bellyfulapp.FreezersUI.MyFreezersRecyclerViewAdapter;
-import com.bellyful.bellyfulapp.dummy.DummyContent;
-import com.bellyful.bellyfulapp.dummy.DummyContent.DummyItem;
+import com.bellyful.bellyfulapp.Freezers.MyFreezersRecyclerViewAdapter;
+import com.bellyful.bellyfulapp.Freezers.FreezerContent;
+import com.bellyful.bellyfulapp.Freezers.FreezerContent.FreezerItem;
 
 /**
  * A fragment representing a list of Items.
@@ -61,7 +61,7 @@ public class FreezersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_freezers_list, container, false);
+        View view = inflater.inflate(R.layout.list_fragment_freezers, container, false);
 
         //Set the Toolbar
         Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
@@ -83,7 +83,7 @@ public class FreezersFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(FreezerContent.ITEMS, mListener));
         }
         return view;
     }
@@ -118,6 +118,6 @@ public class FreezersFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(FreezerItem item);
     }
 }
