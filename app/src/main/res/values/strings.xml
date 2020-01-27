@@ -51,5 +51,7 @@
     <string name="taken">Taken</string>
     <string name="added">Added</string>
     <string name="freezer_owner">Freezer Owner</string>
-    <string name="george">George</string>
+    <string name="confirm">Confirm</string>
+    <string name="add_note">Add Note</string>
+    <string name="update_freezer">Update Freezer</string>
 </resources>

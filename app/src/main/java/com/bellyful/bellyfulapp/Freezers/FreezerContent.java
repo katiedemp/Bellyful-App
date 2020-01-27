@@ -16,7 +16,7 @@ public class FreezerContent {
      */
     public static final Map<String, FreezerContent.FreezerItem> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 4;
+    private static final int COUNT = 3;
 
     static {
         // Add some sample items.
