@@ -20,6 +20,8 @@ import com.bellyful.bellyfulapp.CurrentJobsUI.CurrentJobViewPagerAdapter;
 import com.bellyful.bellyfulapp.CurrentJobsUI.OutstandingJobTab;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +36,8 @@ public class CurrentJobsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String PAGE_NUM = "pageNum";
     private static final String PAGE_TITLE = "pageTitle";
+    private ArrayList<JobData> mSelectedItems = new ArrayList<>();
+    private Bundle args;
 
     private int mPageNum;
     private String mTitle;
@@ -64,16 +68,24 @@ public class CurrentJobsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mPageNum = getArguments().getInt(PAGE_NUM);
-            mTitle = getArguments().getString(PAGE_TITLE);
-        }
+//        if (getArguments() != null) {
+//            mPageNum = getArguments().getInt(PAGE_NUM);
+//            mTitle = getArguments().getString(PAGE_TITLE);
+//        }
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        args = getArguments();
+        if(args != null) {
+            mSelectedItems = args.getParcelableArrayList("newJobList");
+        }else{
+            mSelectedItems.add(new JobData(-1));
+        }
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_current_jobs, container, false);
 
@@ -98,10 +110,11 @@ public class CurrentJobsFragment extends Fragment {
         //Inflate ViewPager tabs
         final ViewPager viewPager = view.findViewById(R.id.currentJobsViewPager);
         TabLayout tabLayout = view.findViewById(R.id.currentJobTabLayout);
-        CurrentJobViewPagerAdapter viewPagerAdapter = new CurrentJobViewPagerAdapter(getChildFragmentManager());
+        CurrentJobViewPagerAdapter viewPagerAdapter = new CurrentJobViewPagerAdapter(getChildFragmentManager(), args);
 
-        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
+//        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
         viewPagerAdapter.addFragment(new OutstandingJobTab(), "My Outstanding");
+
         viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

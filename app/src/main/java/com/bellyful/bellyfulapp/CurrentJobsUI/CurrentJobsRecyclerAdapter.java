@@ -1,36 +1,37 @@
 package com.bellyful.bellyfulapp.CurrentJobsUI;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bellyful.bellyfulapp.MainActivity;
+import com.bellyful.bellyfulapp.JobData;
 import com.bellyful.bellyfulapp.R;
+
+import java.util.ArrayList;
 
 public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobsRecyclerAdapter.NewJobViewHolder>  {
 
     private LayoutInflater mInflater;
     private Context mContext;
     private int mCode;
+    private ArrayList<JobData> mOutstandingJobs;
     private FragmentManager mFragmentManager;
 
 
-    CurrentJobsRecyclerAdapter(Context context, int code, FragmentManager fragmentManager) {
+    CurrentJobsRecyclerAdapter(Context context, int code, ArrayList<JobData> selectedItemsList, FragmentManager fragmentManager) {
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mCode = code;
+        this.mOutstandingJobs = selectedItemsList;
         this.mFragmentManager = fragmentManager;
     }
 
@@ -53,19 +54,40 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewJobViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NewJobViewHolder viewHolder, int position) {
         //TODO: Set to null first
+        viewHolder.foodLabel.setText("");
+        viewHolder.addressLabel.setText("");
+        viewHolder.phoneLabel.setText("");
+        viewHolder.nameLabel.setText("");
+        if(mOutstandingJobs.size() > 0) {
+            final JobData currentItem = mOutstandingJobs.get(position);
+            viewHolder.nameLabel.setText(currentItem.name);
+            viewHolder.addressLabel.setText(currentItem.address);
+            viewHolder.phoneLabel.setText(currentItem.phone);
+            viewHolder.foodLabel.setText(currentItem.meals);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return mOutstandingJobs.size();
     }
 
     class NewJobViewHolder extends RecyclerView.ViewHolder{
 
+        TextView nameLabel;
+        TextView addressLabel;
+        TextView phoneLabel;
+        TextView foodLabel;
+
         public NewJobViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            nameLabel = itemView.findViewById(R.id.lblJobName);
+            addressLabel = itemView.findViewById(R.id.lblJobAddress);
+            phoneLabel = itemView.findViewById(R.id.lblJobPhone);
+            foodLabel = itemView.findViewById(R.id.lblJobFood);
 
             //Dropdown button for outstanding jobs
             if(mCode == 1) {

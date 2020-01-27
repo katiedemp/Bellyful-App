@@ -21,6 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bellyful.bellyfulapp.CurrentJobsUI.BranchJobTab;
+import com.bellyful.bellyfulapp.CurrentJobsUI.CurrentJobsRecyclerAdapter;
+
 import java.util.ArrayList;
 
 
@@ -48,6 +51,7 @@ public class NewJobsFragment extends Fragment {
     private RecyclerView.Adapter mRecyclerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<JobData> mCurrentSelectedItems = new ArrayList<>();//Keeps a list of selected items
+    private ArrayList<JobData> mJobsTaken = new ArrayList<>();
     private ArrayList<JobData> mJobList = new ArrayList<>();
 
     public NewJobsFragment() {
@@ -75,29 +79,33 @@ public class NewJobsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mJobList = getArguments().getParcelableArrayList("newJobList");
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mJobList = getArguments().getParcelableArrayList("newJobList");
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        mJobList = getArguments().getParcelableArrayList("newJobList");
-        //TODO: Remove this
-        //-----testing-----
-        for(int i = 0; i < 5; i++) {
-            JobData testData = new JobData(i);
-            testData.name = JobData.DataGenerator.generateName(i);
-            testData.address = JobData.DataGenerator.generateAddress(i);
-            testData.phone = "021 " + i + " 22 33" + i;
-            testData.meals = JobData.DataGenerator.generateMeals(i);
-            mJobList.add(testData);
+        Bundle args = getArguments();
+        if(args != null) {
+            mJobList = args.getParcelableArrayList("newJobList");
         }
+        //TODO: Remove this
+//        //-----testing-----
+//        for(int i = 0; i < 5; i++) {
+//            JobData testData = new JobData(i);
+//            testData.name = JobData.DataGenerator.generateName(i);
+//            testData.address = JobData.DataGenerator.generateAddress(i);
+//            testData.phone = "021 " + i + " 22 33" + i;
+//            testData.meals = JobData.DataGenerator.generateMeals(i);
+//            mJobList.add(testData);
+//        }
+//        //-----------
         //Init NewJobRecycler
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_new_jobs, null);
+        ViewGroup root = (ViewGroup)inflater.inflate(R.layout.fragment_new_jobs, container, false); // inflater.inflate(R.layout.fragment_new_jobs, null);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.NewJobRecycler);
         createRecyclerView();
 
@@ -128,9 +136,10 @@ public class NewJobsFragment extends Fragment {
         acceptJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i = 0; i < mCurrentSelectedItems.size(); i++){
-                    mJobList.remove(mCurrentSelectedItems.get(i));
-                }
+//                for(int i = 0; i < mCurrentSelectedItems.size(); i++){
+//                    mJobsTaken.add(mCurrentSelectedItems.get(i));
+//                    mJobList.remove(mCurrentSelectedItems.get(i));
+//                }
             new AlertDialog.Builder(getActivity())
                     .setTitle("Confirm Delivery")
                     .setMessage("Are you sure you want to take this delivery?")
@@ -139,6 +148,12 @@ public class NewJobsFragment extends Fragment {
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            for(int i = 0; i < mCurrentSelectedItems.size(); i++){
+                                mJobsTaken.add(mCurrentSelectedItems.get(i));
+                                passData(mJobsTaken.get(i));
+                                mJobList.remove(mCurrentSelectedItems.get(i));
+                            }
+//                            passData(mJobsTaken);
                             createRecyclerView();
                         }
                     })
@@ -162,6 +177,7 @@ public class NewJobsFragment extends Fragment {
         }
     }
 
+    OnDataPass dataPasser;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -172,12 +188,19 @@ public class NewJobsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }*/
+        dataPasser = (OnDataPass) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 
     /**
@@ -193,6 +216,7 @@ public class NewJobsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
     private void createRecyclerView(){
@@ -212,5 +236,14 @@ public class NewJobsFragment extends Fragment {
             }
         });
         mRecyclerView.setAdapter(mRecyclerAdapter);
+    }
+
+
+    public interface OnDataPass{
+        void onDataPass(JobData selectedItems);
+    }
+
+    public void passData(JobData data) {
+        dataPasser.onDataPass(data);
     }
 }

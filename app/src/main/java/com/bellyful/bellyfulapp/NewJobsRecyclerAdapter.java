@@ -25,7 +25,7 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
 
 
 
-    NewJobsRecyclerAdapter(Context context, ArrayList dummyArray, @NonNull OnItemCheckListener onItemCheckListener) {
+    NewJobsRecyclerAdapter(Context context, ArrayList<JobData> dummyArray, @NonNull OnItemCheckListener onItemCheckListener) {
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mDummyData = dummyArray;

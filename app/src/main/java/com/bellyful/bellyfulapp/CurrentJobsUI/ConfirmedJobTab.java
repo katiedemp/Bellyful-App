@@ -12,13 +12,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.JobData;
 import com.bellyful.bellyfulapp.R;
+
+import java.util.ArrayList;
 
 public class ConfirmedJobTab extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecyclerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<JobData> mSelectedItems = new ArrayList<>();
+
 
 
     public ConfirmedJobTab(){
@@ -33,12 +38,16 @@ public class ConfirmedJobTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        if(args != null) {
+            mSelectedItems = args.getParcelableArrayList("newJobList");
+        }
         //Init NewJobRecycler
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_confirmed_job, null);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.myConfirmedRecycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 0, getFragmentManager());
+        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 0, mSelectedItems, getFragmentManager());
         mRecyclerView.setAdapter(mRecyclerAdapter);
         return root;
     }
@@ -47,5 +56,13 @@ public class ConfirmedJobTab extends Fragment {
     @Override
     public void onViewCreated (View view, Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 0, mSelectedItems, getFragmentManager());
+        mRecyclerView.setAdapter(mRecyclerAdapter);
     }
 }

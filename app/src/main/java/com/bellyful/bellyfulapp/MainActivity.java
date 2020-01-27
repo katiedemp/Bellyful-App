@@ -9,24 +9,33 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bellyful.bellyfulapp.FreezersUI.FreezerConfirmFragment;
 import com.bellyful.bellyfulapp.FreezersUI.FreezersUpdateFragment;
+import com.bellyful.bellyfulapp.Model.MealModel;
 import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener, NewJobsFragment.OnDataPass {
 
-    private FirebaseAuth mAuth; //Firebase auth
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
     private ArrayList<JobData> newJobList = new ArrayList<>();
+    protected ArrayList <JobData> selectedJobList = new ArrayList<>();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
+    private FirebaseDatabase database = FirebaseDatabase.getInstance(); //
 
     Toolbar mToolbar;
     TextView mToolbarText;
@@ -37,23 +46,28 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
+//        setUpdateListener("Meal");
+//        createDbEntries();
+//        MealModel meal = new MealModel();
+//        meal.retrieveFromDb();
 
         //Bottom Navigation Bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //Send jobData to the fragment
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("newJobList", newJobList);
-        NewJobsFragment fragment = new NewJobsFragment();
-        fragment.setArguments(bundle);
+//        //Send jobData to the fragment
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelableArrayList("newJobList", newJobList);
+//        NewJobsFragment fragment = new NewJobsFragment();
+//        fragment.setArguments(bundle);
+
+        createTestData();
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.new_deliveries);
         //Load starting fragment
-        loadFragment(new NewJobsFragment());
+        loadNewJobsFragment();
 
     }
 
@@ -64,14 +78,13 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_new_jobs:
-                    //Send jobData to the fragment
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("newJobList", newJobList);
-                    ft = new NewJobsFragment();
-                    loadFragment(ft);
+                    loadNewJobsFragment();
                     return true;
                 case R.id.action_current_jobs:
+                    Bundle currentJobsBundle = new Bundle();
+                    currentJobsBundle.putParcelableArrayList("selectedJobList", selectedJobList);
                     ft = new CurrentJobsFragment();
+                    ft.setArguments(currentJobsBundle);
                     loadFragment(ft);
                     return true;
                 case R.id.action_freezers:
@@ -141,5 +154,67 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void createDbEntries(){
+        MealModel meal = new MealModel();
+        meal.setName("Test");
+        meal.setId("3");
+        meal.addToDb(meal);
+    }
+
+    public void setUpdateListener(String collectionType){
+        //////////////////  Database update listener   //////////////////////////
+        final ArrayList<MealModel> MealList = new ArrayList<>();
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int index = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    MealList.add(ds.getValue(MealModel.class));
+                    Log.d("mealUpdate", MealList.get(index).getName());
+                    ++index;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("mealUpdate", "Failed to read value.", error.toException());
+            }
+        };
+
+        DatabaseReference listenerRef = database.getReference().child("Meal");
+        listenerRef.addValueEventListener(valueEventListener);
+
+        /////////////////////////////////////////////////////////
+
+    }
+
+    public void createTestData(){
+        //-----testing-----
+        for(int i = 0; i < 5; i++) {
+            JobData testData = new JobData(i);
+            testData.name = JobData.DataGenerator.generateName(i);
+            testData.address = JobData.DataGenerator.generateAddress(i);
+            testData.phone = "021 " + i + " 22 33" + i;
+            testData.meals = JobData.DataGenerator.generateMeals(i);
+            newJobList.add(testData);
+        }
+        //-----------
+    }
+
+    public void loadNewJobsFragment(){
+        //Send jobData to the fragment
+        Bundle newJobsBundle = new Bundle();
+        newJobsBundle.putParcelableArrayList("newJobList", newJobList);
+        ft = new NewJobsFragment();
+        ft.setArguments(newJobsBundle);
+        loadFragment(ft);
+    }
+
+    @Override
+    public void onDataPass(JobData selectedItems) {
+        selectedJobList.add(selectedItems);
     }
 }

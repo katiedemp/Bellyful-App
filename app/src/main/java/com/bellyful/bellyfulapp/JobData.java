@@ -17,10 +17,17 @@ public class JobData implements Parcelable {
 
 
     public JobData(int i){
-       this.name = DataGenerator.generateName(i);
-        this.address = DataGenerator.generateAddress(i);
-        this.phone = "021 " + i + " 22 33" + i;
-        this.meals = DataGenerator.generateMeals(i);
+        if(i >= 0) {
+            this.name = DataGenerator.generateName(i);
+            this.address = DataGenerator.generateAddress(i);
+            this.phone = "021 " + i + " 22 33" + i;
+            this.meals = DataGenerator.generateMeals(i);
+        }else{
+            this.name = "No Outstanding Deliveries";
+            this.address = "";
+            this.phone = "";
+            this.meals = "";
+        }
     }
 //
 //    public JobData(int num){

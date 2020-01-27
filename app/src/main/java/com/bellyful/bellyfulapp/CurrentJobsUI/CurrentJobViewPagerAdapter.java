@@ -1,6 +1,7 @@
 package com.bellyful.bellyfulapp.CurrentJobsUI;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,10 +17,12 @@ public class CurrentJobViewPagerAdapter extends FragmentPagerAdapter {
     private final ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private final ArrayList<String> mFragmentTitleList = new ArrayList<>();
 
-    private static int NUM_PAGES = 3;
+    private static int NUM_PAGES = 2;
+    private final Bundle fragmentBundle;
 
-    public CurrentJobViewPagerAdapter(@NonNull FragmentManager fm) {
+    public CurrentJobViewPagerAdapter(@NonNull FragmentManager fm, Bundle data) {
         super(fm);
+        fragmentBundle = data;
     }
 
     @NonNull
@@ -34,6 +37,7 @@ public class CurrentJobViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void addFragment(Fragment fragment, String title){
+        fragment.setArguments(fragmentBundle);
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
