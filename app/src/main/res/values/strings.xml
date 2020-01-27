@@ -39,4 +39,19 @@
     <string name="my_confirmed_deliveries">My Confirmed Deliveries</string>
     <string name="new_deliveries">New Deliveries</string>
     <string name="blank">.</string>
+    <string name="meal_1">Meal 1</string>
+    <string name="meal_2">Meal 2</string>
+    <string name="meal_3">meal 3</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="x2">x2</string>
+    <string name="minus">-</string>
+    <string name="_0">0</string>
+    <string name="add">+</string>
+    <string name="qty">Qty</string>
+    <string name="taken">Taken</string>
+    <string name="added">Added</string>
+    <string name="freezer_owner">Freezer Owner</string>
+    <string name="confirm">Confirm</string>
+    <string name="add_note">Add Note</string>
+    <string name="update_freezer">Update Freezer</string>
 </resources>

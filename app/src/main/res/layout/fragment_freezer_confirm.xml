@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FreezersUI.FreezerConfirmFragment">
+    tools:context=".Freezers.FreezerConfirmFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:paddingEnd="20dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="16dp"
-        android:text="Freezer Owner"
+        android:text="@string/update_freezer"
         android:textStyle="bold"
         android:textColor="@color/colorGrey"
         android:textSize="24sp" />
@@ -30,7 +30,7 @@
             android:textAlignment="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Taking"
+            android:text="Taking:"
             android:textColor="@color/colorGrey"
             android:textSize="24sp" />
 
@@ -41,7 +41,7 @@
             android:textAlignment="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Lasagna x3"
+            android:text="Mac &amp; Cheese x2"
             android:textColor="@color/colorGrey"
             android:textSize="20sp" />
 
@@ -52,7 +52,7 @@
             android:textAlignment="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Mac and Cheese x3"
+            android:text="Bolognese x3"
             android:textColor="@color/colorGrey"
             android:textSize="20sp" />
 
@@ -80,7 +80,7 @@
             android:backgroundTint="@color/colorYellow"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Add Note"
+            android:text="@string/add_note"
             android:textSize="15sp" />
 
         <Button
@@ -93,7 +93,7 @@
             android:backgroundTint="@color/colorGreen"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:textSize="15sp" />
     </LinearLayout>
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name="com.bellyful.bellyfulapp.FreezersUpdateFragment"
-    tools:context=".FreezersUI.FreezersUpdateFragment"
+    tools:context=".Freezers.FreezersUpdateFragment"
     android:id="@+id/freezer_container"
     android:orientation="vertical"
     android:layout_height="match_parent"
@@ -14,9 +14,9 @@
         android:id="@+id/update_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/owner"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/buttons"
+        app:layout_constraintTop_toBottomOf="@+id/owner"
         tools:listitem="@layout/fragment_freezersupdate" />
 
     <LinearLayout
@@ -24,19 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toTopOf="@+id/freezer_container">
-
-        <TextView
-            android:id="@+id/freezer_owner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="16dp"
-            android:text="Freezer Owner"
-            android:textColor="@color/colorGrey"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,7 +42,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:text="Taken"
+            android:text="@string/taken"
             android:textSize="15sp" />
 
         <Button
@@ -62,8 +51,8 @@
             android:layout_height="50dp"
             android:layout_toEndOf="@+id/taken_button"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="Added"
+            android:backgroundTint="@color/colorBlue"
+            android:text="@string/added"
             android:textSize="15sp" />
     </LinearLayout>
 
