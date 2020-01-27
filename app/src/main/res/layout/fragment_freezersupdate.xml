@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGrey"
+                android:visibility="gone"
                 android:textSize="20sp" />
 
             <TextView
@@ -42,7 +43,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Mac &amp; Cheese"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/freezer_stock_qty"
