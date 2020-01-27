@@ -63,14 +63,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Name:   Jason"
+                        android:text="Name:   Admin"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Email:   jason@bellyful.co.nz"
+                        android:text="Email:   admin@bellyful.co.nz"
                         android:textSize="20sp" />
 
                     <TextView
