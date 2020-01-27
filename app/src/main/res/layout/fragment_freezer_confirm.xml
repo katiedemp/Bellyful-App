@@ -41,7 +41,7 @@
             android:textAlignment="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Mac &amp; Cheese x2"
+            android:text="Mac &amp; Cheese x1"
             android:textColor="@color/colorGrey"
             android:textSize="20sp" />
 
@@ -52,7 +52,7 @@
             android:textAlignment="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Bolognese x3"
+            android:text="Bolognese x1"
             android:textColor="@color/colorGrey"
             android:textSize="20sp" />
 
@@ -63,7 +63,7 @@
             android:textAlignment="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Vege Soup x3"
+            android:text="Vege Soup x1"
             android:textColor="@color/colorGrey"
             android:textSize="20sp" />
 
