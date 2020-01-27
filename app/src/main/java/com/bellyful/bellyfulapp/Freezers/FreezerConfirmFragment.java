@@ -1,15 +1,20 @@
-package com.bellyful.bellyfulapp.FreezersUI;
+package com.bellyful.bellyfulapp.Freezers;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.bellyful.bellyfulapp.NewJobsFragment;
 import com.bellyful.bellyfulapp.R;
 
 
@@ -21,7 +26,7 @@ import com.bellyful.bellyfulapp.R;
  * Use the {@link FreezerConfirmFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FreezerConfirmFragment extends Fragment {
+public class FreezerConfirmFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,7 +73,15 @@ public class FreezerConfirmFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_freezer_confirm, container, false);
+        View view = inflater.inflate(R.layout.fragment_freezer_confirm, container, false);
+
+        //Set buttons
+        Button confirmTaken = view.findViewById(R.id.confirm_button);
+        Button addNote = view.findViewById(R.id.note_button);
+        confirmTaken.setOnClickListener(this);
+        addNote.setOnClickListener(this);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -93,6 +106,30 @@ public class FreezerConfirmFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Fragment fragment;
+        switch (view.getId()) {
+            case R.id.note_button:
+            case R.id.confirm_button:
+                Toast toast = Toast.makeText(getActivity(), "Stock Confirmed", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 10);
+                toast.show();
+                fragment = new NewJobsFragment();
+                replaceFragment(fragment);
+                break;
+        }
+    }
+
+
+
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameContainer, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     /**

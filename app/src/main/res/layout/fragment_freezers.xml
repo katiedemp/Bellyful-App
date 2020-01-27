@@ -66,7 +66,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight='2'
+            android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
@@ -86,9 +90,10 @@
                 android:layout_margin="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Las x10"
+                android:text="@string/meal_1"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/freezer_meal2"
                 android:layout_width="wrap_content"
@@ -96,7 +101,7 @@
                 android:layout_margin="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="M&amp;C x10"
+                android:text="@string/meal_2"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="14sp" />
             <TextView
@@ -106,9 +111,60 @@
                 android:layout_margin="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Vege x5"
+                android:text="@string/meal_3"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/freezer_mealQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/qty"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/colorGrey"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/freezer_mealQty1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/qty"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/freezer_mealQty2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/qty"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/freezer_mealQty3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/qty"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="14sp" />
+
+        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
