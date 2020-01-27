@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment.OnListFragmentInteractionListener;
@@ -22,6 +23,7 @@ public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     private final List<FreezerItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private int quantity = 0;
 
     public MyFreezersUpdateRecyclerViewAdapter(List<FreezerItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -32,14 +34,16 @@ public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<My
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_freezersupdate, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mMeal1View.setText(mValues.get(position).meal1);
+        holder.mMealQty1View.setText(mValues.get(position).mealQty1);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +55,28 @@ public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<My
                 }
             }
         });
+
+        holder.incrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = Integer.parseInt(String.valueOf(holder.mQuantityView.getText()));
+                quantity = count;
+                quantity++;
+                holder.mQuantityView.setText(String.valueOf(quantity));
+            }
+
+        });
+
+        holder.decrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = Integer.parseInt(String.valueOf(holder.mQuantityView.getText()));
+                quantity = count;
+                quantity--;
+                holder.mQuantityView.setText(String.valueOf(quantity));
+            }
+
+        });
     }
 
     @Override
@@ -58,31 +84,50 @@ public class MyFreezersUpdateRecyclerViewAdapter extends RecyclerView.Adapter<My
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        MyClickListener listener;
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
         public FreezerItem mItem;
-        public TextView mNameView;
         public TextView mMeal1View;
-        public TextView mMeal2View;
-        public TextView mMeal3View;
+        public TextView mMealQty1View;
+        TextView mQuantityView;
+        Button incrementButton;
+        Button decrementButton;
 
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.freezer_meal);
-            mNameView = view.findViewById(R.id.freezer_owner);
-            mMeal1View = view.findViewById(R.id.freezer_meal1);
-            mMeal2View = view.findViewById(R.id.freezer_meal2);
-            mMeal3View = view.findViewById(R.id.freezer_meal3);
+            mMeal1View = view.findViewById(R.id.freezer_meal_name);
+            mMealQty1View = view.findViewById(R.id.freezer_stock_qty);
+            incrementButton = view.findViewById(R.id.increment_button);
+            decrementButton = view.findViewById(R.id.decrement_button);
+            mQuantityView = view.findViewById(R.id.quantity_textview);
+
+            incrementButton.setOnClickListener(this);
+            decrementButton.setOnClickListener(this);
         }
 
+
         @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.increment_button:
+                    listener.onIncrement(this.getLayoutPosition());
+                    break;
+                case R.id.decrement_button:
+                    listener.onDecrement(this.getLayoutPosition());
+                    break;
+                default:
+                    break;
+            }
         }
+        public interface MyClickListener {
+            void onIncrement(int p);
+            void onDecrement(int p);
+        }
+
     }
 }

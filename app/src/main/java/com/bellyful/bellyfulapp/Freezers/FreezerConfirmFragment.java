@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +114,9 @@ public class FreezerConfirmFragment extends Fragment implements View.OnClickList
         switch (view.getId()) {
             case R.id.note_button:
             case R.id.confirm_button:
-                Toast.makeText(getActivity(), "Stock Confirmed", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(getActivity(), "Stock Confirmed", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 10);
+                toast.show();
                 fragment = new NewJobsFragment();
                 replaceFragment(fragment);
                 break;

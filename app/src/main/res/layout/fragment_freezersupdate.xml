@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:baselineAligned="false"
     android:id="@+id/freezer_update_fragment">
 
     <LinearLayout
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_marginStart="10dp"
-                android:text="@string/meal_name"
+                android:text="Mac &amp; Cheese"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="16sp"/>
 
@@ -54,10 +55,10 @@
                 android:textSize="15sp"/>
 
             <Button
-                android:id="@+id/decrementButton"
+                android:id="@+id/decrement_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:onClick="action_decrement"
+                android:onClick="actionDecrement"
                 android:text="@string/minus"
                 android:textSize="15sp"
                 android:background="@drawable/freezer_border"/>
@@ -72,17 +73,18 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/incrementButton"
+                android:id="@+id/increment_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
-                android:onClick="action_increment"
+                android:onClick="actionIncrement"
                 android:text="@string/add"
                 android:textSize="15sp"
                 android:background="@drawable/freezer_border"/>
         </LinearLayout>
-
     </LinearLayout>
+
+
 
 
 </LinearLayout>
