@@ -16,7 +16,6 @@ import android.widget.Toast;
 //import com.bellyful.bellyfulapp.FreezersUI.FreezerConfirmFragment;
 //import com.bellyful.bellyfulapp.FreezersUI.FreezersUpdateFragment;
 import com.bellyful.bellyfulapp.Model.MealModel;
-import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.bellyful.bellyfulapp.Freezers.FreezerConfirmFragment;
 import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment;
 import com.bellyful.bellyfulapp.Freezers.FreezerContent;
@@ -31,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener, NewJobsFragment.OnDataPass {
+public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener, JobSubmitFragment.OnJobSubmitFragmentInteractionListener, NewJobsFragment.OnDataPass {
 
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
     private ArrayList<JobData> newJobList = new ArrayList<>();
@@ -92,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
                     ft = new FreezersFragment();
                     loadFragment(ft);
                     return true;
+                case R.id.action_job_submit:
+                    ft = new JobSubmitFragment();
+                    loadFragment(ft);
+                    return true;
                 case R.id.action_user:
                     ft = new UserAccountFragment();
                     loadFragment(ft);
@@ -149,6 +152,11 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 
     @Override
     public void onListFreezersUpdateFragmentInteraction(FreezerContent.FreezerItem item) {
+
+    }
+
+    @Override
+    public void onJobSubmitFragmentInteraction(Uri uri) {
 
     }
 
@@ -218,4 +226,6 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     public void onDataPass(JobData selectedItems) {
         selectedJobList.add(selectedItems);
     }
+
+
 }
