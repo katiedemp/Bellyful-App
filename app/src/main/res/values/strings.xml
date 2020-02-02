@@ -59,5 +59,16 @@
 
     <!-- Job Submit Fragment -->
     <string name="job_submission">Add New Job</string>
+    <string name="first_Name">First name</string>
+    <string name="last_Name">Last Name</string>
+    <string name="suburb">Suburb</string>
+    <string name="city">City/ Town</string>
+    <string name="postcode">Postcode</string>
+
+    <string-array name="answer_array">
+        <item>Dog on Property?</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
 </resources>

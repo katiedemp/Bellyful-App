@@ -11,6 +11,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 
 /**
@@ -21,7 +26,7 @@ import android.view.ViewGroup;
  * Use the {@link JobSubmitFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JobSubmitFragment extends Fragment {
+public class JobSubmitFragment extends Fragment implements OnItemSelectedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,6 +75,16 @@ public class JobSubmitFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_job_submit, container, false);
 
+        //Set the Dog on Property dropdown
+        Spinner spinner = view.findViewById(R.id.dog_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.answer_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
         //Set the Toolbar
         Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.job_submission);
@@ -88,6 +103,18 @@ public class JobSubmitFragment extends Fragment {
         if (mListener != null) {
             mListener.onJobSubmitFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // An item was selected. You can retrieve the selected item using
+        //parent.getItemAtPosition(position);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // TODO Auto-generated method stub
     }
 
     @Override
