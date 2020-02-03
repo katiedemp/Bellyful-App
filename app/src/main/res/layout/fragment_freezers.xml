@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:baselineAligned="false"
-    tools:context=".FreezersFragment">
+    tools:context=".FreezersFragment"
+    android:background="@drawable/recycler_border">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:background="@drawable/top_bottom_border"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -40,7 +40,8 @@
                 android:text="@string/name"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/colorGrey"
-                android:textSize="20sp" />
+                android:textStyle="bold"
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/freezer_address"
@@ -51,7 +52,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/address"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="17sp"/>
+                android:textSize="22sp"/>
 
             <TextView
                 android:id="@+id/freezer_phone"
@@ -62,7 +63,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/phone"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="17sp"/>
+                android:textSize="22sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -83,7 +84,7 @@
                 android:text="@string/freezer_stock"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/colorGrey"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/freezer_meal1"
@@ -94,7 +95,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/meal_1"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/freezer_meal2"
@@ -105,7 +106,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/meal_2"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/freezer_meal3"
                 android:layout_width="wrap_content"
@@ -115,7 +116,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/meal_3"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -131,7 +132,7 @@
                 android:text="@string/qty"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/colorGrey"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/freezer_mealQty1"
@@ -142,7 +143,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/qty"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/freezer_mealQty2"
@@ -153,7 +154,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/qty"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/freezer_mealQty3"
@@ -164,7 +165,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/qty"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
         </LinearLayout>
