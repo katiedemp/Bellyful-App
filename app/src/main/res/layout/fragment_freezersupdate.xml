@@ -4,19 +4,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:baselineAligned="false"
-    android:id="@+id/freezer_update_fragment">
+    android:id="@+id/freezer_update_fragment"
+    android:background="@drawable/recycler_border">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:background="@drawable/top_bottom_border"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="horizontal" >
 
             <TextView
@@ -43,7 +42,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Mac &amp; Cheese"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
             <TextView
                 android:id="@+id/freezer_stock_qty"
@@ -53,15 +52,15 @@
                 android:layout_margin="5dp"
                 android:text="@string/x2"
                 android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="15sp"/>
+                android:textSize="22sp"/>
 
             <Button
                 android:id="@+id/decrement_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:onClick="actionDecrement"
                 android:text="@string/minus"
-                android:textSize="15sp"
+                android:textSize="22sp"
                 android:background="@drawable/freezer_border"/>
 
             <EditText
@@ -71,16 +70,16 @@
                 android:padding="10dp"
                 android:inputType="text"
                 android:text="@string/_0"
-                android:textSize="16sp" />
+                android:textSize="25sp" />
 
             <Button
                 android:id="@+id/increment_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginEnd="10dp"
                 android:onClick="actionIncrement"
                 android:text="@string/add"
-                android:textSize="15sp"
+                android:textSize="25sp"
                 android:background="@drawable/freezer_border"/>
         </LinearLayout>
     </LinearLayout>
