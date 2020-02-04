@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bellyful.bellyfulapp.JobData;
+import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
 
 import java.util.ArrayList;

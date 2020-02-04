@@ -13,10 +13,14 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bellyful.bellyfulapp.JobData;
+import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobsRecyclerAdapter.NewJobViewHolder>  {
 
@@ -62,10 +66,24 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         viewHolder.nameLabel.setText("");
         if(mOutstandingJobs.size() > 0) {
             final JobData currentItem = mOutstandingJobs.get(position);
+//            ArrayList numMeals = new ArrayList();
             viewHolder.nameLabel.setText(currentItem.name);
             viewHolder.addressLabel.setText(currentItem.address);
             viewHolder.phoneLabel.setText(currentItem.phone);
-            viewHolder.foodLabel.setText(currentItem.meals);
+
+            //Count number of meals in the list and put them in a string
+            Map<String, Integer> numMeals = new HashMap<>();
+            for(int i = 0; i < currentItem.meals.size(); i++){
+                int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
+                numMeals.put(currentItem.meals.get(i), occurrences);
+            }
+            StringBuilder mealString = new StringBuilder();
+            for( String key : numMeals.keySet() ) {
+                mealString.append(key).append("x");
+                mealString.append(numMeals.get(key).toString()).append(" ");
+            }
+
+            viewHolder.foodLabel.setText(mealString);
         }
 
 //        if(mCode == 1){

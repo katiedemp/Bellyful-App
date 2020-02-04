@@ -6,17 +6,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 //import com.bellyful.bellyfulapp.FreezersUI.FreezerConfirmFragment;
 //import com.bellyful.bellyfulapp.FreezersUI.FreezersUpdateFragment;
+import com.bellyful.bellyfulapp.Model.DatabaseHelper;
+import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.Model.MealModel;
-import com.bellyful.bellyfulapp.dummy.DummyContent;
 import com.bellyful.bellyfulapp.Freezers.FreezerConfirmFragment;
 import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment;
 import com.bellyful.bellyfulapp.Freezers.FreezerContent;
@@ -31,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener, NewJobsFragment.OnDataPass {
+public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener, NewJobsFragment.OnDataPass{
 
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
     private ArrayList<JobData> newJobList = new ArrayList<>();
@@ -56,13 +57,9 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        //Send jobData to the fragment
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelableArrayList("newJobList", newJobList);
-//        NewJobsFragment fragment = new NewJobsFragment();
-//        fragment.setArguments(bundle);
-
-        createTestData();
+//        createTestData();
+//        JobData testData = new JobData();
+        setJobUpdateListener();
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
@@ -161,48 +158,39 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         MealModel meal = new MealModel();
         meal.setName("Test");
         meal.setId("3");
-        meal.addToDb(meal);
+//        meal.addToDb(meal);
     }
 
-    public void setUpdateListener(String collectionType){
+    public void setJobUpdateListener(){
         //////////////////  Database update listener   //////////////////////////
-        final ArrayList<MealModel> MealList = new ArrayList<>();
+//        final ArrayList<JobData> JobList = new ArrayList<>();
+//        ArrayList list = new ArrayList();
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                newJobList.clear();
                 int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    MealList.add(ds.getValue(MealModel.class));
-                    Log.d("mealUpdate", MealList.get(index).getName());
+                    newJobList.add(ds.getValue(JobData.class));
+//                    String id = ds.child(collectionType).getValue(String.class);
+                    Log.d("JobData", newJobList.get(index).getName());
                     ++index;
                 }
+                loadNewJobsFragment();
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w("mealUpdate", "Failed to read value.", error.toException());
+                Log.w("JobData", "Failed to read value.", error.toException());
             }
         };
 
-        DatabaseReference listenerRef = database.getReference().child("Meal");
+        DatabaseReference listenerRef = database.getReference().child("JobData");
         listenerRef.addValueEventListener(valueEventListener);
 
         /////////////////////////////////////////////////////////
 
-    }
-
-    public void createTestData(){
-        //-----testing-----
-        for(int i = 0; i < 5; i++) {
-            JobData testData = new JobData(i);
-            testData.name = JobData.DataGenerator.generateName(i);
-            testData.address = JobData.DataGenerator.generateAddress(i);
-            testData.phone = "021 " + i + " 22 33" + i;
-            testData.meals = JobData.DataGenerator.generateMeals(i);
-            newJobList.add(testData);
-        }
-        //-----------
     }
 
     public void loadNewJobsFragment(){

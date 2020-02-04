@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 /*
@@ -54,9 +55,11 @@ public abstract class DatabaseHelper{
 //        });
     }
 
-    public void addToDb(final DatabaseHelper newDocument) {
+    public static void addToDb(String collectionType, final DatabaseHelper newDocument) {
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        ref.push().setValue(newDocument)
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = db.getReference().child(collectionType);
+        dbRef.push().setValue(newDocument)
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -72,46 +75,26 @@ public abstract class DatabaseHelper{
         });
     }
 
-    //TODO: Make abstract after some testing
-    public void retrieveFromDb(){}
-//    public abstract void retrieveFromDb();
-//    public void retrieveFromDb(){
-//        ref.addValueEventListener(new ValueEventListener() {
+
+    public static void removeFromDb(String collectionType, String id){
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = db.getReference().child(collectionType);
+//        String query = dbRef.child("id").child(id).getKey();
+        Query query = dbRef.child("id").equalTo(id);
+        query.getRef().removeValue();
+//        dbRef.child("id").child(id).removeValue();
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                DatabaseHelper value = dataSnapshot.getValue(DatabaseHelper.class);
-//                Log.d(TAG, "Value is: " + value);
+//                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+//                    ds.getRef().removeValue();
+//                }
 //            }
 //
 //            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.e("DB Error", "onCancelled", databaseError.toException());
 //            }
 //        });
-//    }
-
-//    public void hydrateObject(DatabaseHelper document){
-//        document.retrieveFromDb();
-//    }
-
-//
-//    public void removeFromDb(DatabaseHelper document){
-//        database.collection("cities").document("DC")
-//                .delete()
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error deleting document", e);
-//                    }
-//                });
-//    }
+    }
 }

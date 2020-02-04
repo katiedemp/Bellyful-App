@@ -1,9 +1,7 @@
 package com.bellyful.bellyfulapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,13 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.bellyful.bellyfulapp.CurrentJobsUI.BranchJobTab;
-import com.bellyful.bellyfulapp.CurrentJobsUI.CurrentJobsRecyclerAdapter;
+import com.bellyful.bellyfulapp.Model.DatabaseHelper;
+import com.bellyful.bellyfulapp.Model.JobData;
 
 import java.util.ArrayList;
 
@@ -143,15 +142,18 @@ public class NewJobsFragment extends Fragment {
             new AlertDialog.Builder(getActivity())
                     .setTitle("Confirm Delivery")
                     .setMessage("Are you sure you want to take this delivery?")
-
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        //Accept Job
                         public void onClick(DialogInterface dialog, int which) {
                             for(int i = 0; i < mCurrentSelectedItems.size(); i++){
-                                mJobsTaken.add(mCurrentSelectedItems.get(i));
-                                passData(mJobsTaken.get(i));
+                                mJobsTaken.add(mCurrentSelectedItems.get(i));//Get a list of the selected jobs
+                                passData(mJobsTaken.get(i)); //
+                                String id = mCurrentSelectedItems.get(i).id;
+                                DatabaseHelper.removeFromDb("JobData", id);
                                 mJobList.remove(mCurrentSelectedItems.get(i));
+                                Log.d("deletion", id + " was removed");
                             }
 //                            passData(mJobsTaken);
                             createRecyclerView();
@@ -161,11 +163,6 @@ public class NewJobsFragment extends Fragment {
                     .setNegativeButton(android.R.string.no, null)
 //                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-
-                //Send parcelable list of accepted jobs
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                intent.putParcelableArrayListExtra("mJobList", mJobList);
-//                startActivity(intent);
             }
         });
     }
@@ -203,6 +200,7 @@ public class NewJobsFragment extends Fragment {
 
     }
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -222,7 +220,6 @@ public class NewJobsFragment extends Fragment {
     private void createRecyclerView(){
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        //TODO: Send real data to the recycler adapter
 //        mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity(), test.dummyJobs);
         mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity(), mJobList, new NewJobsRecyclerAdapter.OnItemCheckListener() {
             @Override
@@ -246,4 +243,5 @@ public class NewJobsFragment extends Fragment {
     public void passData(JobData data) {
         dataPasser.onDataPass(data);
     }
+
 }

@@ -10,7 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.Model.JobData;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecyclerAdapter.NewJobViewHolder>  {
 
@@ -78,7 +83,20 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
         viewHolder.nameLabel.setText(currentItem.name);
         viewHolder.addressLabel.setText(currentItem.address);
         viewHolder.phoneLabel.setText(currentItem.phone);
-        viewHolder.foodLabel.setText(currentItem.meals);
+
+        //Count number of meals in the list and put them in a string
+        Map<String, Integer> numMeals = new HashMap<>();
+        for(int i = 0; i < currentItem.meals.size(); i++){
+            int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
+            numMeals.put(currentItem.meals.get(i), occurrences);
+        }
+        StringBuilder mealString = new StringBuilder();
+        for( String key : numMeals.keySet() ) {
+            mealString.append(key).append("x");
+            mealString.append(numMeals.get(key).toString()).append(" ");
+        }
+
+        viewHolder.foodLabel.setText(mealString);
 
     }
 
@@ -109,5 +127,6 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
         public void setOnClickListener(View.OnClickListener onClickListener) {
             itemView.setOnClickListener(onClickListener);
         }
+
     }
 }

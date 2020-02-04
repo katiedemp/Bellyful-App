@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bellyful.bellyfulapp.CurrentJobsUI.BranchJobTab;
-import com.bellyful.bellyfulapp.CurrentJobsUI.ConfirmedJobTab;
 import com.bellyful.bellyfulapp.CurrentJobsUI.CurrentJobViewPagerAdapter;
 import com.bellyful.bellyfulapp.CurrentJobsUI.OutstandingJobTab;
+import com.bellyful.bellyfulapp.Model.JobData;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
