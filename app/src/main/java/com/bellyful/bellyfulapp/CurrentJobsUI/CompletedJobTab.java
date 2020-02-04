@@ -9,43 +9,59 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.CurrentJobsFragment;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
-public class OutstandingJobTab extends Fragment {
+public class CompletedJobTab extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecyclerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<JobData> mSelectedItem = new ArrayList<>();
+    private ArrayList<JobData> mCompleteItems = new ArrayList<>();
+    private EventBus bus = EventBus.getDefault();
 
-    public OutstandingJobTab(){
+
+    public CompletedJobTab(){
         //Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bus.register(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Bundle args = getArguments();
-        if(args != null) {
-            mSelectedItem = args.getParcelableArrayList("selectedJobList");
-        }
-        //Init NewJobRecycler
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_outstanding_job, container, false);
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.myOutstandingRecycler);
+
+//        //Init NewJobRecycler
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_completed_job, container, false);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.myCompletedRecycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerAdapter = new CurrentJobsRecyclerAdapter(getActivity(), 1, mSelectedItem, getFragmentManager());
+        mRecyclerAdapter = new CompletedJobsRecyclerAdapter(getActivity(), mCompleteItems, getFragmentManager());
         mRecyclerView.setAdapter(mRecyclerAdapter);
         return root;
     }
+
+    private void drawRecyclerAdapter(){
+
+    }
+
+    //catch Event from fragment A
+    public void onEvent(CurrentJobsFragment.dataChangedEvent event) {
+        mCompleteItems = event.mNewData;
+        mRecyclerAdapter = new CompletedJobsRecyclerAdapter(getActivity(), mCompleteItems, getFragmentManager());
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+    }
+
+
 
 
 

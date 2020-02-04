@@ -64,6 +64,7 @@
     <string name="suburb">Suburb</string>
     <string name="city">City/ Town</string>
     <string name="postcode">Postcode</string>
+    <string name="completed">Completed</string>
 
     <string-array name="answer_array">
         <item>Dog on Property?</item>

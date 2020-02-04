@@ -56,7 +56,6 @@ public abstract class DatabaseHelper{
     }
 
     public static void addToDb(String collectionType, final DatabaseHelper newDocument) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference().child(collectionType);
         dbRef.push().setValue(newDocument)
@@ -78,10 +77,7 @@ public abstract class DatabaseHelper{
     public static void removeFromDbByID(String collectionType, String id){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference().child(collectionType);
-//        String query = dbRef.child("id").child(id).getKey();
         Query query = dbRef.orderByChild("id").equalTo(id);
-//        query.getRef().removeValue();
-//        dbRef.child("id").child(id).removeValue();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

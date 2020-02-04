@@ -13,8 +13,11 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.CurrentJobsFragment;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,17 +29,24 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
 
     private LayoutInflater mInflater;
     private Context mContext;
-    private int mCode;
+    private int mCode; // 1 = Outstanding, 2 = Complete
     private ArrayList<JobData> mOutstandingJobs;
+    private ArrayList<JobData> mCompletedJobs = new ArrayList<>();
     private FragmentManager mFragmentManager;
+    EventBus bus = EventBus.getDefault();
 
 
-    CurrentJobsRecyclerAdapter(Context context, int code, ArrayList<JobData> selectedItemsList, FragmentManager fragmentManager) {
+    CurrentJobsRecyclerAdapter(Context context, int code, ArrayList<JobData> itemsList, FragmentManager fragmentManager) {
+        //Load outstanding jobs
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mCode = code;
-        this.mOutstandingJobs = selectedItemsList;
         this.mFragmentManager = fragmentManager;
+        if(code == 1) {
+            this.mOutstandingJobs = itemsList;
+        }else if(mCode == 2){
+            this.mCompletedJobs = itemsList;
+        }
     }
 
     @NonNull
@@ -48,7 +58,7 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         }else if(mCode == 1){
             viewGroup = (ViewGroup) mInflater.inflate((R.layout.list_item_tab_outstanding), parent, false);
         }else if(mCode == 2){
-            viewGroup = (ViewGroup) mInflater.inflate((R.layout.list_item_tab_outstanding), parent, false);
+            viewGroup = (ViewGroup) mInflater.inflate((R.layout.list_item_tab_completed), parent, false);
         }else{
             viewGroup = (ViewGroup) mInflater.inflate((R.layout.list_item_tab_confirmed), parent, false);
         }
@@ -59,31 +69,59 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
 
     @Override
     public void onBindViewHolder(@NonNull final NewJobViewHolder viewHolder, final int position) {
-        //TODO: Set to null first
         viewHolder.foodLabel.setText("");
         viewHolder.addressLabel.setText("");
         viewHolder.phoneLabel.setText("");
         viewHolder.nameLabel.setText("");
-        if(mOutstandingJobs.size() > 0) {
-            final JobData currentItem = mOutstandingJobs.get(position);
+        if(mCode == 1) {
+            if (mOutstandingJobs.size() > 0) {
+                final JobData currentItem = mOutstandingJobs.get(position);
 //            ArrayList numMeals = new ArrayList();
-            viewHolder.nameLabel.setText(currentItem.name);
-            viewHolder.addressLabel.setText(currentItem.address);
-            viewHolder.phoneLabel.setText(currentItem.phone);
+                viewHolder.nameLabel.setText(currentItem.name);
+                viewHolder.addressLabel.setText(currentItem.address);
+                viewHolder.phoneLabel.setText(currentItem.phone);
 
-            //Count number of meals in the list and put them in a string
-            Map<String, Integer> numMeals = new HashMap<>();
-            for(int i = 0; i < currentItem.meals.size(); i++){
-                int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
-                numMeals.put(currentItem.meals.get(i), occurrences);
-            }
-            StringBuilder mealString = new StringBuilder();
-            for( String key : numMeals.keySet() ) {
-                mealString.append(key).append("x");
-                mealString.append(numMeals.get(key).toString()).append(" ");
-            }
+                //Count number of meals in the list and put them in a string
+                Map<String, Integer> numMeals = new HashMap<>();
+                for (int i = 0; i < currentItem.meals.size(); i++) {
+                    int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
+                    numMeals.put(currentItem.meals.get(i), occurrences);
+                }
+                StringBuilder mealString = new StringBuilder();
+                for (String key : numMeals.keySet()) {
+                    mealString.append(key).append("x");
+                    mealString.append(numMeals.get(key).toString()).append(" ");
+                }
 
-            viewHolder.foodLabel.setText(mealString);
+                viewHolder.foodLabel.setText(mealString);
+            }
+        }else if(mCode == 2){
+            if (mCompletedJobs.size() > 0) {
+                final JobData currentItem = mCompletedJobs.get(position);
+//            ArrayList numMeals = new ArrayList();
+                viewHolder.nameLabel.setText(currentItem.name);
+                viewHolder.addressLabel.setText(currentItem.address);
+                viewHolder.phoneLabel.setText(currentItem.phone);
+
+                //Count number of meals in the list and put them in a string
+                Map<String, Integer> numMeals = new HashMap<>();
+                for (int i = 0; i < currentItem.meals.size(); i++) {
+                    int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
+                    numMeals.put(currentItem.meals.get(i), occurrences);
+                }
+                StringBuilder mealString = new StringBuilder();
+                for (String key : numMeals.keySet()) {
+                    mealString.append(key).append("x");
+                    mealString.append(numMeals.get(key).toString()).append(" ");
+                }
+
+                viewHolder.foodLabel.setText(mealString);
+            }else{
+                viewHolder.foodLabel.setText("");
+                viewHolder.addressLabel.setText("");
+                viewHolder.phoneLabel.setText("");
+                viewHolder.nameLabel.setText("");
+            }
         }
 
 //        if(mCode == 1){
@@ -106,7 +144,12 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
 
     @Override
     public int getItemCount() {
-        return mOutstandingJobs.size();
+        if(mCode == 1) {
+            return mOutstandingJobs.size();
+        }else if (mCode == 2){
+            return mCompletedJobs.size();
+        }
+        return 0;
     }
 
     class NewJobViewHolder extends RecyclerView.ViewHolder{
@@ -142,7 +185,11 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
                 completeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        mCompletedJobs.add(mOutstandingJobs.get(getAdapterPosition()));
                         mOutstandingJobs.remove(getAdapterPosition());
+
+                        bus.post(new CurrentJobsFragment.dataChangedEvent(mCompletedJobs));
+
                         notifyDataSetChanged();
                         startButton.setVisibility(View.VISIBLE);
                         completeButton.setVisibility(View.GONE);

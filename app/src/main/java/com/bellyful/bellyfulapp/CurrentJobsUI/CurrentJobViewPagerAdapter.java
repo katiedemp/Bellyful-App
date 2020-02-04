@@ -7,7 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 
 import java.util.ArrayList;
@@ -19,10 +20,12 @@ public class CurrentJobViewPagerAdapter extends FragmentPagerAdapter {
 
     private static int NUM_PAGES = 2;
     private final Bundle fragmentBundle;
+    private FragmentManager mFragmentManger;
 
     public CurrentJobViewPagerAdapter(@NonNull FragmentManager fm, Bundle data) {
         super(fm);
         fragmentBundle = data;
+        mFragmentManger = fm;
     }
 
     @NonNull
@@ -45,6 +48,11 @@ public class CurrentJobViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position){
         return mFragmentTitleList.get(position);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
 

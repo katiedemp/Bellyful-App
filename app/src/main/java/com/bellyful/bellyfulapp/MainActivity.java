@@ -48,16 +48,10 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        setUpdateListener("Meal");
-//        createDbEntries();
-//        MealModel meal = new MealModel();
-//        meal.retrieveFromDb();
-
         //Bottom Navigation Bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        createTestData();
 //        JobData testData = new JobData();
         setJobUpdateListener();
 

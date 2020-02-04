@@ -113,7 +113,8 @@ public class CurrentJobsFragment extends Fragment {
 
 //        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
         viewPagerAdapter.addFragment(new OutstandingJobTab(), "My Outstanding");
-        viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
+//        viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
+        viewPagerAdapter.addFragment(new BranchJobTab(), "Completed");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -159,6 +160,13 @@ public class CurrentJobsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public static class dataChangedEvent {
+        public ArrayList<JobData> mNewData;
+        public dataChangedEvent(ArrayList<JobData> newData) {
+            this.mNewData = newData;
+        }
     }
 
 }
