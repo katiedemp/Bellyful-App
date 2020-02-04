@@ -20,6 +20,7 @@ import com.bellyful.bellyfulapp.Freezers.FreezersContent.FreezerItem;
 import com.bellyful.bellyfulapp.Model.FreezerModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -34,8 +35,7 @@ public class FreezersFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
-    private ArrayList<FreezerModel> mFreezerList;
+    private List<FreezerModel> mFreezerList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -94,6 +94,9 @@ public class FreezersFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(FreezersContent.ITEMS, mListener));
+
+            //TODO: Uncomment to use database values
+//            recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(mFreezerList, mListener));
         }
         return view;
     }
