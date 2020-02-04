@@ -8,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bellyful.bellyfulapp.FreezersFragment.OnListFragmentInteractionListener;
+import com.bellyful.bellyfulapp.Model.FreezerModel;
 import com.bellyful.bellyfulapp.R;
-import com.bellyful.bellyfulapp.Freezers.FreezerContent.FreezerItem;
+import com.bellyful.bellyfulapp.Freezers.FreezersContent.FreezerItem;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link FreezerItem} and makes a call to the
@@ -37,7 +42,7 @@ public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreeze
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+//        holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mNameView.setText(mValues.get(position).name);
         holder.mAddressView.setText(mValues.get(position).address);

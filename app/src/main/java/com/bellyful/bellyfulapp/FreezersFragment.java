@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bellyful.bellyfulapp.Freezers.MyFreezersRecyclerViewAdapter;
-import com.bellyful.bellyfulapp.Freezers.FreezerContent;
-import com.bellyful.bellyfulapp.Freezers.FreezerContent.FreezerItem;
+import com.bellyful.bellyfulapp.Freezers.FreezersContent;
+import com.bellyful.bellyfulapp.Freezers.FreezersContent.FreezerItem;
+import com.bellyful.bellyfulapp.Model.FreezerModel;
+
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -31,6 +34,8 @@ public class FreezersFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private ArrayList<FreezerModel> mFreezerList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,6 +66,11 @@ public class FreezersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        if(args != null) {
+            mFreezerList = args.getParcelableArrayList("freezerList");
+        }
+
         View view = inflater.inflate(R.layout.list_fragment_freezers, container, false);
 
         //Set the Toolbar
@@ -83,7 +93,7 @@ public class FreezersFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(FreezerContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(FreezersContent.ITEMS, mListener));
         }
         return view;
     }

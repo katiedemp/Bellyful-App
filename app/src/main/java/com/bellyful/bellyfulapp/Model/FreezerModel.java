@@ -1,68 +1,178 @@
 package com.bellyful.bellyfulapp.Model;
 
-class FreezerModel extends DatabaseHelper {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String id;
-    private String volunteerId;
-    private String mealsAvailableId;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+public class FreezerModel extends DatabaseHelper implements Parcelable {
+
+    public String id;
     public String name;
     public String address;
     public String phone;
-    public String mealName;
-    public String mealQty;
+//    public ArrayList<String> meals = new ArrayList<>();
+    public Map<String, Integer> meals = new HashMap<>();
 
-    public FreezerModel() {
+    public FreezerModel(){
         super("Freezer");
+//        createData();
     }
 
-    public FreezerModel(String name, String address, String phone, String mealName, String mealQty) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.mealName = mealName;
-        this.mealQty = mealQty;
+    public FreezerModel(int i) {
     }
 
     public String getId() {
         return id;
     }
-    public void setId(String id) {
-        this.id = id;
+
+    public String getName() {
+        return name;
     }
 
-    public String getVolunteerId() {
-        return volunteerId;
-    }
-    public void setVolunteerId(String volunteerId) {
-        //TODO: Check this exists before setting
-        this.volunteerId = volunteerId;
+    public String getAddress() {
+        return address;
     }
 
-    public String getMealsAvailableId() {
-        return mealsAvailableId;
-    }
-    public void setMealsAvailableId(String mealsAvailableId) {
-        //TODO: Check this exists before setting
-        this.mealsAvailableId = mealsAvailableId;
+    public String getPhone() {
+        return phone;
     }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Map<String, Integer> getMeals() {
+        return meals;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    //TODO: REMOVE. Test stuff
+    public static String generateName(int index){
+        switch (index) {
+            case 0:
+                return "Suzanne";
+            case 1:
+                return "George";
+            case 2:
+                return "Mary";
+            case 3:
+                return "Ashley";
+            case 4:
+                return "John";
+            case 5:
+                return "Lee";
+            case 6:
+                return "Steve";
+            default:
+                return "Name:";
+        }
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public static String generateAddress(int index){
+        switch (index) {
+            case 0:
+                return "123 West St";
+            case 1:
+                return "2A Beach Rd";
+            case 2:
+                return "Unit 3a, 22 High Pd";
+            case 3:
+                return "32 Oscar Pl";
+            case 4:
+                return "21 Koru Dr";
+            case 5:
+                return "13B Bays Cr";
+            case 6:
+                return "24 North St";
+            default:
+                return "Address:";
+        }
+    }
 
-    public String getMealName() { return mealName; }
-    public void setMealName(String mealName) { this.mealName = mealName; }
+    public static String generateMeals(int index) {
+        switch (index) {
+            case 0:
+                return "Las";
+            case 1:
+                return "M&C";
+            case 2:
+                return "Bol";
+            case 3:
+                return "Veg Soup";
+            case 4:
+                return "Chick Soup";
+            case 5:
+                return "Veg Las";
+            case 6:
+                return "Curry";
+            default:
+                return "Name:";
+        }
+    }
 
-    public String getMealQty() { return mealQty; }
-    public void setMealQty(String mealQty) { this.mealQty = mealQty; }
+    public static int generateMealQty(int index) {
+        switch (index) {
+            case 0:
+                return 1;
+            case 1:
+                return 2;
+            case 2:
+                return 3;
+            case 3:
+                return 4;
+            case 4:
+                return 5;
+            case 5:
+                return 6;
+            case 6:
+                return 7;
+            default:
+                return 0;
+        }
+    }
 
+    public void createData(){
+        FreezerModel testdata = new FreezerModel(1);
+        for(int i = 0; i < 3; ++i){
+            testdata.id = Integer.toString(i);
+            testdata.name = generateName(i);
+            testdata.address = generateAddress(i);
+            testdata.phone = "021 " + i + " 22 33" + i;
+            for(int index = 0; index < 3; index++) {
+                testdata.meals.put(generateMeals(i), generateMealQty(i));
+            }
 
+            DatabaseHelper.addToDb("Freezer", testdata);
+        }
+    }
 
+    private FreezerModel(Parcel in) {
+        name = in.readString();
+        address = in.readString();
+        phone = in.readString();
+//        in.readStringList(meals);
+    }
+
+    public static final Parcelable.Creator<FreezerModel> CREATOR = new Parcelable.Creator<FreezerModel>() {
+        @Override
+        public FreezerModel createFromParcel(Parcel in) {
+            return new FreezerModel(in);
+        }
+
+        @Override
+        public FreezerModel[] newArray(int size) {
+            return new FreezerModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(address);
+        parcel.writeString(phone);
+        parcel.writeMap(meals);
+    }
 }
-

@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FreezerContent {
+public class FreezersContent {
     /**
      * An array of sample freezer items.
      */
-    public static final List<FreezerContent.FreezerItem> ITEMS = new ArrayList<>();
+    public static final List<FreezersContent.FreezerItem> ITEMS = new ArrayList<>();
 
     /**
      * A map of sample freezer items, by ID.
      */
-    public static final Map<String, FreezerContent.FreezerItem> ITEM_MAP = new HashMap<>();
+    public static final Map<String, FreezersContent.FreezerItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 3;
 
@@ -25,13 +25,13 @@ public class FreezerContent {
         }
     }
 
-    private static void addItem(FreezerContent.FreezerItem item) {
+    private static void addItem(FreezersContent.FreezerItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static FreezerContent.FreezerItem createFreezerItem(int position) {
-        return new FreezerContent.FreezerItem(String.valueOf(position));
+    private static FreezersContent.FreezerItem createFreezerItem(int position) {
+        return new FreezersContent.FreezerItem(String.valueOf(position));
     }
 
 

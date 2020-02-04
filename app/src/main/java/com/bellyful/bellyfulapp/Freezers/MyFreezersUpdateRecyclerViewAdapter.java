@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bellyful.bellyfulapp.Freezers.FreezersUpdateFragment.OnListFragmentInteractionListener;
 import com.bellyful.bellyfulapp.R;
-import com.bellyful.bellyfulapp.Freezers.FreezerContent.FreezerItem;
+import com.bellyful.bellyfulapp.Freezers.FreezersContent.FreezerItem;
 
 import java.util.List;
 
