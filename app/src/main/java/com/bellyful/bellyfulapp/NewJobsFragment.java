@@ -151,7 +151,7 @@ public class NewJobsFragment extends Fragment {
                                 mJobsTaken.add(mCurrentSelectedItems.get(i));//Get a list of the selected jobs
                                 passData(mJobsTaken.get(i)); //
                                 String id = mCurrentSelectedItems.get(i).id;
-                                DatabaseHelper.removeFromDb("JobData", id);
+                                DatabaseHelper.removeFromDbByID("JobData", id);
                                 mJobList.remove(mCurrentSelectedItems.get(i));
                                 Log.d("deletion", id + " was removed");
                             }

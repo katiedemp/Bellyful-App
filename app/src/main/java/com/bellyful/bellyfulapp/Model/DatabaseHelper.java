@@ -75,26 +75,25 @@ public abstract class DatabaseHelper{
         });
     }
 
-
-    public static void removeFromDb(String collectionType, String id){
+    public static void removeFromDbByID(String collectionType, String id){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference().child(collectionType);
 //        String query = dbRef.child("id").child(id).getKey();
-        Query query = dbRef.child("id").equalTo(id);
-        query.getRef().removeValue();
+        Query query = dbRef.orderByChild("id").equalTo(id);
+//        query.getRef().removeValue();
 //        dbRef.child("id").child(id).removeValue();
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-//                    ds.getRef().removeValue();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.e("DB Error", "onCancelled", databaseError.toException());
-//            }
-//        });
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    ds.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("DB Error", "onCancelled", databaseError.toException());
+            }
+        });
     }
 }
