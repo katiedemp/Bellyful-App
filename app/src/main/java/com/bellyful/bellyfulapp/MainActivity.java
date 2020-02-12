@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         setJobUpdateListener();
         setFreezerUpdateListen();
         setAcceptedJobUpdateListener();
+        setCompletedJobUpdateListener();
 
 
         mToolbar = findViewById(R.id.main_toolbar);
@@ -222,6 +223,34 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         };
 
         DatabaseReference listenerRef = database.getReference().child("AcceptedJob");
+        listenerRef.addValueEventListener(valueEventListener);
+    }
+
+    public void setCompletedJobUpdateListener(){
+//        final ArrayList<JobData> JobList = new ArrayList<>();
+//        ArrayList list = new ArrayList();
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                selectedJobList.clear();
+                int index = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if(ds != null) {
+                        selectedJobList.add(ds.getValue(AcceptedJobModel.class));
+                        ++index;
+                    }
+                }
+//                loadNewJobsFragment();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("CompletedJob", "Failed to read value.", error.toException());
+            }
+        };
+
+        DatabaseReference listenerRef = database.getReference().child("CompletedJob");
         listenerRef.addValueEventListener(valueEventListener);
     }
 

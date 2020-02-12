@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bellyful.bellyfulapp.CurrentJobsFragment;
 import com.bellyful.bellyfulapp.Model.AcceptedJobModel;
+import com.bellyful.bellyfulapp.Model.CompletedJobModel;
 import com.bellyful.bellyfulapp.Model.DatabaseHelper;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
@@ -203,9 +204,21 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
                     public void onClick(View view) {
                         AcceptedJobModel currentItem = mOutstandingJobs.get(getAdapterPosition());
                         String id = currentItem.getId();
+                        String user = currentItem.getUser();
                         DatabaseHelper.removeFromDbByID(currentItem, id);
 
                         //TODO: add completed jobs to db
+
+                        CompletedJobModel completedJob = new CompletedJobModel();
+                        completedJob.fillObject(currentItem.getId(), user, currentItem.getName(),
+                                    currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
+
+//                        completedJob = mOutstandingJobs.get(getAdapterPosition());
+
+                        DatabaseHelper.addToDb(completedJob);
+                        String outstandingID = mOutstandingJobs.get(getAdapterPosition()).getId();
+                        DatabaseHelper.removeFromDbByID(mOutstandingJobs.get(getAdapterPosition()), outstandingID);
+
                         mCompletedJobs.add(mOutstandingJobs.get(getAdapterPosition()));
                         mOutstandingJobs.remove(getAdapterPosition());
 

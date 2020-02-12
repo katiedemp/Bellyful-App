@@ -27,6 +27,10 @@ public class JobData extends DatabaseHelper implements Parcelable {
 //        createTestData();
     }
 
+    public JobData(String collectionType){
+        super(collectionType);
+    }
+
 
     //TODO: Remove later. This constructor is for testing
     public JobData(int i){
@@ -110,6 +114,26 @@ public class JobData extends DatabaseHelper implements Parcelable {
 
     public Map<String, Integer> getMeals() {
         return meals;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setMeals(Map<String, Integer> meals) {
+        this.meals = meals;
     }
 
 

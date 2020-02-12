@@ -41,7 +41,7 @@ public class BranchJobTab extends Fragment {
         if(args != null) {
             mSelectedItems = args.getParcelableArrayList("selectedJobList");
         }else{
-            mSelectedItems.add(new AcceptedJobModel(-1));
+//            mSelectedItems.add(new AcceptedJobModel());
         }
 
         //Init NewJobRecycler

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
+public class CompletedJobModel extends DatabaseHelper implements Parcelable {
 
     private String id;
     private String user;
@@ -18,8 +18,8 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
     private String phone;
     public Map<String, Integer> meals = new HashMap<>();
 
-    public AcceptedJobModel(){
-        super("AcceptedJob");
+    public CompletedJobModel(){
+        super("CompletedJob");
 //        createTestData();
     }
 
@@ -32,21 +32,21 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
         this.meals = meals;
     }
 
-    private AcceptedJobModel(Parcel in) {
+    private CompletedJobModel(Parcel in) {
         name = in.readString();
         address = in.readString();
         phone = in.readString();
     }
 
-    public static final Creator<AcceptedJobModel> CREATOR = new Creator<AcceptedJobModel>() {
+    public static final Creator<CompletedJobModel> CREATOR = new Creator<CompletedJobModel>() {
         @Override
-        public AcceptedJobModel createFromParcel(Parcel in) {
-            return new AcceptedJobModel(in);
+        public CompletedJobModel createFromParcel(Parcel in) {
+            return new CompletedJobModel(in);
         }
 
         @Override
-        public AcceptedJobModel[] newArray(int size) {
-            return new AcceptedJobModel[size];
+        public CompletedJobModel[] newArray(int size) {
+            return new CompletedJobModel[size];
         }
     };
 
