@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.Model.AcceptedJobModel;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
 
@@ -19,7 +20,7 @@ public class BranchJobTab extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecyclerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<JobData> mSelectedItems = new ArrayList<>();
+    private ArrayList<AcceptedJobModel> mSelectedItems = new ArrayList<>();
     private Bundle args;
 
 
@@ -40,7 +41,7 @@ public class BranchJobTab extends Fragment {
         if(args != null) {
             mSelectedItems = args.getParcelableArrayList("selectedJobList");
         }else{
-            mSelectedItems.add(new JobData(-1));
+            mSelectedItems.add(new AcceptedJobModel(-1));
         }
 
         //Init NewJobRecycler

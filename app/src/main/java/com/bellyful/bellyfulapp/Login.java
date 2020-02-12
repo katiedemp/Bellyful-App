@@ -107,14 +107,14 @@ public class Login extends AppCompatActivity {
                                 throw task.getException();
                             } catch(FirebaseAuthInvalidUserException e) {
                                 editTextUsername.setError("Invalid email");
-                                editTextUsername.requestFocus();
+//                                editTextUsername.requestFocus();
                             } catch(FirebaseAuthInvalidCredentialsException e) {
                                 editTextPassword.setError("Invalid Password");
-                                editTextPassword.requestFocus();
+//                                editTextPassword.requestFocus();
                             } catch(Exception e) {
                                 Log.e(TAG, e.getMessage());
                             }
-                            //updateUI(null);
+//                            updateUI(null);
                         }
 
                         // ...
@@ -128,13 +128,13 @@ public class Login extends AppCompatActivity {
         if (TextUtils.isEmpty(password)) {
             //Empty password
             editTextPassword.setError("Password required");
-            editTextPassword.requestFocus();
+//            editTextPassword.requestFocus();
             valid = false;
         }
         if (TextUtils.isEmpty(email)) {
             //Empty email
             editTextUsername.setError("Email required");
-            editTextUsername.requestFocus();
+//            editTextUsername.requestFocus();
             valid = false;
         }
         return valid;

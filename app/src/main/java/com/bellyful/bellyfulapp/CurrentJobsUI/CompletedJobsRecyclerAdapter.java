@@ -56,20 +56,26 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
         if (mCompletedJobs.size() > 0) {
             final JobData currentItem = mCompletedJobs.get(position);
 //            ArrayList numMeals = new ArrayList();
-            viewHolder.nameLabel.setText(currentItem.name);
-            viewHolder.addressLabel.setText(currentItem.address);
-            viewHolder.phoneLabel.setText(currentItem.phone);
+            viewHolder.nameLabel.setText(currentItem.getName());
+            viewHolder.addressLabel.setText(currentItem.getAddress());
+            viewHolder.phoneLabel.setText(currentItem.getPhone());
 
-            //Count number of meals in the list and put them in a string
-            Map<String, Integer> numMeals = new HashMap<>();
-            for (int i = 0; i < currentItem.meals.size(); i++) {
-                int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
-                numMeals.put(currentItem.meals.get(i), occurrences);
-            }
+//            //Count number of mMeals in the list and put them in a string
+//            Map<String, Integer> numMeals = new HashMap<>();
+//            for (int i = 0; i < currentItem.getMeals().size(); i++) {
+//                int occurrences = Collections.frequency(currentItem.getMeals(), currentItem.getMeals().get(i));
+//                numMeals.put(currentItem.getMeals().get(i), occurrences);
+//            }
+//                    ArrayList<String> meal = new ArrayList<>();
+//        ArrayList<Integer> qty = new ArrayList<>();
+//        for(String key : currentItem.getMeals().keySet()){
+//            meal.add(key);
+//            qty.add(currentItem.getMeals().get(key));
+//        }
             StringBuilder mealString = new StringBuilder();
-            for (String key : numMeals.keySet()) {
+            for (String key : currentItem.getMeals().keySet()) {
                 mealString.append(key).append("x");
-                mealString.append(numMeals.get(key).toString()).append(" ");
+                mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
             }
 
             viewHolder.foodLabel.setText(mealString);
@@ -145,7 +151,7 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
                                 case R.id.moreOptions:
 //                                        OutstandingJobActivity nextFrag= new OutstandingJobActivity();
 //                                        FragmentTransaction ft = mFragmentManager.beginTransaction();
-//                                        ft.replace(R.id.frameContainer, nextFrag);
+//                                        ft.replace(R.mID.frameContainer, nextFrag);
 //                                        ft.addToBackStack(null);
 //                                        ft.commit();
                                     return true;

@@ -27,7 +27,6 @@ tools:context=".Login">
 
     <EditText
         android:id="@+id/editTextUserEmail"
-        android:theme="@style/TextTheme"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -41,7 +40,6 @@ tools:context=".Login">
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:theme="@style/TextTheme"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"

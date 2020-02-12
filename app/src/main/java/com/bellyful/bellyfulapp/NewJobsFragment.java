@@ -20,8 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bellyful.bellyfulapp.Model.AcceptedJobModel;
 import com.bellyful.bellyfulapp.Model.DatabaseHelper;
 import com.bellyful.bellyfulapp.Model.JobData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -96,10 +99,10 @@ public class NewJobsFragment extends Fragment {
 //        //-----testing-----
 //        for(int i = 0; i < 5; i++) {
 //            JobData testData = new JobData(i);
-//            testData.name = JobData.DataGenerator.generateName(i);
-//            testData.address = JobData.DataGenerator.generateAddress(i);
-//            testData.phone = "021 " + i + " 22 33" + i;
-//            testData.meals = JobData.DataGenerator.generateMeals(i);
+//            testData.mName = JobData.DataGenerator.generateName(i);
+//            testData.mAddress = JobData.DataGenerator.generateAddress(i);
+//            testData.mPhone = "021 " + i + " 22 33" + i;
+//            testData.mMeals = JobData.DataGenerator.generateMeals(i);
 //            mJobList.add(testData);
 //        }
 //        //-----------
@@ -148,10 +151,20 @@ public class NewJobsFragment extends Fragment {
                         //Accept Job
                         public void onClick(DialogInterface dialog, int which) {
                             for(int i = 0; i < mCurrentSelectedItems.size(); i++){
-                                mJobsTaken.add(mCurrentSelectedItems.get(i));//Get a list of the selected jobs
-                                passData(mJobsTaken.get(i)); //
-                                String id = mCurrentSelectedItems.get(i).id;
-                                DatabaseHelper.removeFromDbByID("JobData", id);
+                                JobData currentItem = mCurrentSelectedItems.get(i);
+//                                mJobsTaken.add(currentItem);//Get a list of the selected jobs
+//                                passData(mJobsTaken.get(i)); //
+                                String id = currentItem.getID();
+                                DatabaseHelper.removeFromDbByID(currentItem, id);
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                String userID = user.getUid();
+                                AcceptedJobModel acceptedJob = new AcceptedJobModel();
+                                acceptedJob.fillObject(currentItem.getID(), userID, currentItem.getName(),
+                                        currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
+//                                AcceptedJobModel acceptedJob = new AcceptedJobModel(currentItem.getID(), userID, currentItem.getName(),
+//                                        currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
+                                DatabaseHelper.addToDb(acceptedJob);
                                 mJobList.remove(mCurrentSelectedItems.get(i));
                                 Log.d("deletion", id + " was removed");
                             }
@@ -237,10 +250,10 @@ public class NewJobsFragment extends Fragment {
 
 
     public interface OnDataPass{
-        void onDataPass(JobData selectedItems);
+        void onDataPass(AcceptedJobModel selectedItems);
     }
 
-    public void passData(JobData data) {
+    public void passData(AcceptedJobModel data) {
         dataPasser.onDataPass(data);
     }
 

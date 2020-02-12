@@ -1,6 +1,7 @@
 package com.bellyful.bellyfulapp.CurrentJobsUI;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,15 +15,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bellyful.bellyfulapp.CurrentJobsFragment;
+import com.bellyful.bellyfulapp.Model.AcceptedJobModel;
+import com.bellyful.bellyfulapp.Model.DatabaseHelper;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobsRecyclerAdapter.NewJobViewHolder>  {
@@ -30,13 +34,13 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
     private LayoutInflater mInflater;
     private Context mContext;
     private int mCode; // 1 = Outstanding, 2 = Complete
-    private ArrayList<JobData> mOutstandingJobs;
-    private ArrayList<JobData> mCompletedJobs = new ArrayList<>();
+    private ArrayList<AcceptedJobModel> mOutstandingJobs;
+    private ArrayList<AcceptedJobModel> mCompletedJobs = new ArrayList<>();
     private FragmentManager mFragmentManager;
     EventBus bus = EventBus.getDefault();
 
 
-    CurrentJobsRecyclerAdapter(Context context, int code, ArrayList<JobData> itemsList, FragmentManager fragmentManager) {
+    CurrentJobsRecyclerAdapter(Context context, int code, ArrayList<AcceptedJobModel> itemsList, FragmentManager fragmentManager) {
         //Load outstanding jobs
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
@@ -75,45 +79,57 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         viewHolder.nameLabel.setText("");
         if(mCode == 1) {
             if (mOutstandingJobs.size() > 0) {
-                final JobData currentItem = mOutstandingJobs.get(position);
+                final AcceptedJobModel currentItem = mOutstandingJobs.get(position);
 //            ArrayList numMeals = new ArrayList();
-                viewHolder.nameLabel.setText(currentItem.name);
-                viewHolder.addressLabel.setText(currentItem.address);
-                viewHolder.phoneLabel.setText(currentItem.phone);
+                viewHolder.nameLabel.setText(currentItem.getName());
+                viewHolder.addressLabel.setText(currentItem.getAddress());
+                viewHolder.phoneLabel.setText(currentItem.getPhone());
 
-                //Count number of meals in the list and put them in a string
-                Map<String, Integer> numMeals = new HashMap<>();
-                for (int i = 0; i < currentItem.meals.size(); i++) {
-                    int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
-                    numMeals.put(currentItem.meals.get(i), occurrences);
-                }
+//                //Count number of mMeals in the list and put them in a string
+//                Map<String, Integer> numMeals = new HashMap<>();
+//                for (int i = 0; i < currentItem.getMeals().size(); i++) {
+//                    int occurrences = Collections.frequency(currentItem.getMeals(), currentItem.getMeals().get(i));
+//                    numMeals.put(currentItem.getMeals().get(i), occurrences);
+//                }
+//                StringBuilder mealString = new StringBuilder();
+//                for (String key : numMeals.keySet()) {
+//                    mealString.append(key).append("x");
+//                    mealString.append(numMeals.get(key).toString()).append(" ");
+//                }
                 StringBuilder mealString = new StringBuilder();
-                for (String key : numMeals.keySet()) {
+                for (String key : currentItem.getMeals().keySet()) {
                     mealString.append(key).append("x");
-                    mealString.append(numMeals.get(key).toString()).append(" ");
+                    mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
                 }
+
 
                 viewHolder.foodLabel.setText(mealString);
             }
         }else if(mCode == 2){
             if (mCompletedJobs.size() > 0) {
-                final JobData currentItem = mCompletedJobs.get(position);
+                final AcceptedJobModel currentItem = mCompletedJobs.get(position);
 //            ArrayList numMeals = new ArrayList();
-                viewHolder.nameLabel.setText(currentItem.name);
-                viewHolder.addressLabel.setText(currentItem.address);
-                viewHolder.phoneLabel.setText(currentItem.phone);
+                viewHolder.nameLabel.setText(currentItem.getName());
+                viewHolder.addressLabel.setText(currentItem.getAddress());
+                viewHolder.phoneLabel.setText(currentItem.getPhone());
 
-                //Count number of meals in the list and put them in a string
-                Map<String, Integer> numMeals = new HashMap<>();
-                for (int i = 0; i < currentItem.meals.size(); i++) {
-                    int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
-                    numMeals.put(currentItem.meals.get(i), occurrences);
-                }
+//                //Count number of mMeals in the list and put them in a string
+//                Map<String, Integer> numMeals = new HashMap<>();
+//                for (int i = 0; i < currentItem.getMeals().size(); i++) {
+//                    int occurrences = Collections.frequency(currentItem.getMeals(), currentItem.getMeals().get(i));
+//                    numMeals.put(currentItem.getMeals().get(i), occurrences);
+//                }
+//                StringBuilder mealString = new StringBuilder();
+//                for (String key : numMeals.keySet()) {
+//                    mealString.append(key).append("x");
+//                    mealString.append(numMeals.get(key).toString()).append(" ");
+//                }
                 StringBuilder mealString = new StringBuilder();
-                for (String key : numMeals.keySet()) {
+                for (String key : currentItem.getMeals().keySet()) {
                     mealString.append(key).append("x");
-                    mealString.append(numMeals.get(key).toString()).append(" ");
+                    mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
                 }
+
 
                 viewHolder.foodLabel.setText(mealString);
             }else{
@@ -185,10 +201,33 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
                 completeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        AcceptedJobModel currentItem = mOutstandingJobs.get(getAdapterPosition());
+                        String id = currentItem.getId();
+                        DatabaseHelper.removeFromDbByID(currentItem, id);
+
+                        //TODO: add completed jobs to db
                         mCompletedJobs.add(mOutstandingJobs.get(getAdapterPosition()));
                         mOutstandingJobs.remove(getAdapterPosition());
 
-                        bus.post(new CurrentJobsFragment.dataChangedEvent(mCompletedJobs));
+
+//                        for(int i = 0; i < mOutstandingJobs.size(); i++){
+//                            AcceptedJobModel currentItem = mOutstandingJobs.get(i);
+//                            mJobsTaken.add(currentItem);//Get a list of the selected jobs
+////                                passData(mJobsTaken.get(i)); //
+//                            String id = currentItem.getID();
+//                            DatabaseHelper.removeFromDbByID(currentItem, id);
+//                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                            AcceptedJobModel acceptedJob = new AcceptedJobModel(currentItem.getID(), user, currentItem.getName(),
+//                                    currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
+//                            DatabaseHelper.addToDb(acceptedJob);
+//                            mJobList.remove(mCurrentSelectedItems.get(i));
+//                            Log.d("deletion", id + " was removed");
+//                        }
+////                            passData(mJobsTaken);
+//                        createRecyclerView();
+
+
+//                        bus.post(new CurrentJobsFragment.dataChangedEvent(mCompletedJobs));
 
                         notifyDataSetChanged();
                         startButton.setVisibility(View.VISIBLE);
@@ -217,7 +256,7 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
                                     case R.id.moreOptions:
 //                                        OutstandingJobActivity nextFrag= new OutstandingJobActivity();
 //                                        FragmentTransaction ft = mFragmentManager.beginTransaction();
-//                                        ft.replace(R.id.frameContainer, nextFrag);
+//                                        ft.replace(R.mID.frameContainer, nextFrag);
 //                                        ft.addToBackStack(null);
 //                                        ft.commit();
                                         return true;

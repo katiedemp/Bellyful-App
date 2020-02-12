@@ -140,7 +140,7 @@ public class FreezerModel extends DatabaseHelper implements Parcelable {
                 testdata.meals.put(generateMeals(i), generateMealQty(i));
             }
 
-            DatabaseHelper.addToDb("Freezer", testdata);
+            DatabaseHelper.addToDb(testdata);
         }
     }
 

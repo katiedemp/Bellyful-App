@@ -80,21 +80,28 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
 //        viewHolder.addressLabel.setText(testData.generateAddress(position));
 //        viewHolder.phoneLabel.setText("021 " + position + " 22 33" + position);
 //        viewHolder.foodLabel.setText(testData.generateMeals(position));
-        viewHolder.nameLabel.setText(currentItem.name);
-        viewHolder.addressLabel.setText(currentItem.address);
-        viewHolder.phoneLabel.setText(currentItem.phone);
+        viewHolder.nameLabel.setText(currentItem.getName());
+        viewHolder.addressLabel.setText(currentItem.getAddress());
+        viewHolder.phoneLabel.setText(currentItem.getPhone());
 
-        //Count number of meals in the list and put them in a string
-        Map<String, Integer> numMeals = new HashMap<>();
-        for(int i = 0; i < currentItem.meals.size(); i++){
-            int occurrences = Collections.frequency(currentItem.meals, currentItem.meals.get(i));
-            numMeals.put(currentItem.meals.get(i), occurrences);
-        }
+        //Count number of mMeals in the list and put them in a string
+//        Map<String, Integer> numMeals = new HashMap<>();
+//        for(int i = 0; i < currentItem.getMeals().size(); i++){
+//            int occurrences = Collections.frequency(currentItem.getMeals(), currentItem.getMeals().get(i));
+//            numMeals.put(currentItem.getMeals().get(i), occurrences);
+//        }
+//        StringBuilder mealString = new StringBuilder();
+//        for( String key : numMeals.keySet() ) {
+//            mealString.append(key).append("x");
+//            mealString.append(numMeals.get(key).toString()).append(" ");
+//        }
+
         StringBuilder mealString = new StringBuilder();
-        for( String key : numMeals.keySet() ) {
+        for (String key : currentItem.getMeals().keySet()) {
             mealString.append(key).append("x");
-            mealString.append(numMeals.get(key).toString()).append(" ");
+            mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
         }
+
 
         viewHolder.foodLabel.setText(mealString);
 

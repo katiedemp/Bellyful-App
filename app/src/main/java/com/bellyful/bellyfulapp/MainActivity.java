@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 //import com.bellyful.bellyfulapp.FreezersUI.FreezerConfirmFragment;
 //import com.bellyful.bellyfulapp.FreezersUI.FreezersUpdateFragment;
+import com.bellyful.bellyfulapp.Model.AcceptedJobModel;
 import com.bellyful.bellyfulapp.Model.FreezerModel;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.Model.MealModel;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
     private ArrayList<JobData> newJobList = new ArrayList<>();
     private ArrayList<FreezerModel> freezerList = new ArrayList<>();
-    protected ArrayList <JobData> selectedJobList = new ArrayList<>();
+    protected ArrayList <AcceptedJobModel> selectedJobList = new ArrayList<>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
     private FirebaseDatabase database = FirebaseDatabase.getInstance(); //
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 
         setJobUpdateListener();
         setFreezerUpdateListen();
+        setAcceptedJobUpdateListener();
 
 
         mToolbar = findViewById(R.id.main_toolbar);
@@ -177,8 +179,8 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
                 int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     newJobList.add(ds.getValue(JobData.class));
-//                    String id = ds.child(collectionType).getValue(String.class);
-                    Log.d("JobData", newJobList.get(index).getName());
+//                    String mID = ds.child(collectionType).getValue(String.class);
+//                    Log.d("JobData", newJobList.get(index).getName());
                     ++index;
                 }
                 loadNewJobsFragment();
@@ -195,6 +197,34 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         listenerRef.addValueEventListener(valueEventListener);
     }
 
+    public void setAcceptedJobUpdateListener(){
+//        final ArrayList<JobData> JobList = new ArrayList<>();
+//        ArrayList list = new ArrayList();
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                selectedJobList.clear();
+                int index = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if(ds != null) {
+                        selectedJobList.add(ds.getValue(AcceptedJobModel.class));
+                        ++index;
+                    }
+                }
+//                loadNewJobsFragment();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("AcceptedJob", "Failed to read value.", error.toException());
+            }
+        };
+
+        DatabaseReference listenerRef = database.getReference().child("AcceptedJob");
+        listenerRef.addValueEventListener(valueEventListener);
+    }
+
     private void setFreezerUpdateListen() {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -203,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
                 int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     freezerList.add(ds.getValue(FreezerModel.class));
-//                    String id = ds.child(collectionType).getValue(String.class);
+//                    String mID = ds.child(collectionType).getValue(String.class);
                     Log.d("DB", freezerList.get(index).getName());
                     ++index;
                 }
@@ -240,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     }
 
     @Override
-    public void onDataPass(JobData selectedItems) {
+    public void onDataPass(AcceptedJobModel selectedItems) {
         selectedJobList.add(selectedItems);
     }
 

@@ -26,8 +26,8 @@ public class MealModel extends DatabaseHelper{
 //                // This method is called once with the initial value and again
 //                // whenever data at this location is updated.
 ////                String value = dataSnapshot.getValue(String.class);
-////                id = dataSnapshot.child("id").getValue().toString();
-////                name = dataSnapshot.child("name").getValue().toString();
+////                mID = dataSnapshot.child("mID").getValue().toString();
+////                mName = dataSnapshot.child("mName").getValue().toString();
 ////                DatabaseHelper value = dataSnapshot.getValue(DatabaseHelper.class);
 ////                Log.d(TAG, "Value is: " + value);
 //                int index = 0;
@@ -59,8 +59,8 @@ public class MealModel extends DatabaseHelper{
 //                // This method is called once with the initial value and again
 //                // whenever data at this location is updated.
 ////                String value = dataSnapshot.getValue(String.class);
-////                id = dataSnapshot.child("id").getValue().toString();
-////                name = dataSnapshot.child("name").getValue().toString();
+////                mID = dataSnapshot.child("mID").getValue().toString();
+////                mName = dataSnapshot.child("mName").getValue().toString();
 ////                DatabaseHelper value = dataSnapshot.getValue(DatabaseHelper.class);
 ////                Log.d(TAG, "Value is: " + value);
 //                MealModel mealUpdate = dataSnapshot.getValue(MealModel.class);

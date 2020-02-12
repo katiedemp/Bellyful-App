@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -20,8 +21,12 @@ import com.google.firebase.database.ValueEventListener;
     Each model that extends this class represents a collection in the db
  */
 public abstract class DatabaseHelper{
+
+    @Exclude
     protected String collectionType;
+    @Exclude
     protected FirebaseDatabase database = FirebaseDatabase.getInstance();
+    @Exclude
     protected DatabaseReference ref;
 
     private String TAG = "DatabaseHelper";
@@ -31,33 +36,15 @@ public abstract class DatabaseHelper{
         //Default constructor required for  calls to DataSnapshot.getValue()
     }
 
+    //Constructor to determine the collection type.
     DatabaseHelper(String _collectionType) {
         collectionType = _collectionType;
-//        database.getReference().child(_collectionType);
         ref = database.getReference().child(collectionType);
-
-        // Read/Update from the database
-        //TODO: Test this works when there's data in db
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                DatabaseHelper value = dataSnapshot.getValue(DatabaseHelper.class);
-//                Log.d(TAG, "Value is: " + value);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
     }
 
-    public static void addToDb(String collectionType, final DatabaseHelper newDocument) {
+    public static void addToDb(final DatabaseHelper newDocument) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = db.getReference().child(collectionType);
+        DatabaseReference dbRef = db.getReference().child(newDocument.collectionType);
         dbRef.push().setValue(newDocument)
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -74,9 +61,9 @@ public abstract class DatabaseHelper{
         });
     }
 
-    public static void removeFromDbByID(String collectionType, String id){
+    public static void removeFromDbByID(DatabaseHelper document, String id){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = db.getReference().child(collectionType);
+        DatabaseReference dbRef = db.getReference().child(document.collectionType);
         Query query = dbRef.orderByChild("id").equalTo(id);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -91,5 +78,14 @@ public abstract class DatabaseHelper{
                 Log.e("DB Error", "onCancelled", databaseError.toException());
             }
         });
+    }
+
+    @Exclude
+    public String getCollectionType() {
+        return collectionType;
+    }
+    @Exclude
+    public void setCollectionType(String collectionType) {
+        this.collectionType = collectionType;
     }
 }

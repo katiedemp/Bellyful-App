@@ -4,7 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.bellyful.bellyfulapp.Model.FreezerModel.generateMealQty;
+import static com.bellyful.bellyfulapp.Model.FreezerModel.generateMeals;
 
 public class JobData extends DatabaseHelper implements Parcelable {
 
@@ -12,11 +16,11 @@ public class JobData extends DatabaseHelper implements Parcelable {
 //    public ArrayList<JobData> dummyJobs = new ArrayList<>();
 
     //    public JobData testData;
-    public String id;
-    public String name;
-    public String address;
-    public String phone;
-    public ArrayList<String> meals = new ArrayList<>();
+    private String id;
+    private String name;
+    private String address;
+    private String phone;
+    public Map<String, Integer> meals = new HashMap<>();
 
     public JobData(){
         super("JobData");
@@ -26,21 +30,6 @@ public class JobData extends DatabaseHelper implements Parcelable {
 
     //TODO: Remove later. This constructor is for testing
     public JobData(int i){
-        if(i >= 0) {
-//            this.id = i;
-//            this.name = DataGenerator.generateName(i);
-//            this.address = DataGenerator.generateAddress(i);
-//            this.phone = "021 " + i + " 22 33" + i;
-//            this.meals.add("Las");
-//            this.meals.add("M&C");
-//            this.meals.add("Bol");
-//            this.meals.add(DataGenerator.generateMeals(i));
-//        }else{
-//            this.name = "No Outstanding Deliveries";
-//            this.address = "";
-//            this.phone = "";
-//            this.meals.add("");
-        }
     }
 //
 //    public JobData(int num){
@@ -75,7 +64,7 @@ public class JobData extends DatabaseHelper implements Parcelable {
         name = in.readString();
         address = in.readString();
         phone = in.readString();
-        in.readStringList(meals);
+//        in.readHashMap(meals);
     }
 
     public static final Parcelable.Creator<JobData> CREATOR = new Parcelable.Creator<JobData>() {
@@ -100,7 +89,11 @@ public class JobData extends DatabaseHelper implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(address);
         parcel.writeString(phone);
-        parcel.writeStringList(meals);
+        parcel.writeMap(meals);
+    }
+
+    public String getID() {
+        return id;
     }
 
     public String getName() {
@@ -115,9 +108,10 @@ public class JobData extends DatabaseHelper implements Parcelable {
         return phone;
     }
 
-    public ArrayList<String> getMeals() {
+    public Map<String, Integer> getMeals() {
         return meals;
     }
+
 
     //USED FOR TEST DATA
     //TODO: DELETE THIS LATER
@@ -183,54 +177,16 @@ public class JobData extends DatabaseHelper implements Parcelable {
 
     public void createTestData(){
         //-----testing-----
-        JobData testData = new JobData(1);
+//        JobData testData = new JobData(1);
         for(int i = 0; i < 5; i++) {
-            testData.id = Integer.toString(i);
-            testData.name = JobData.DataGenerator.generateName(i);
-            testData.address = JobData.DataGenerator.generateAddress(i);
-            testData.phone = "021 " + i + " 22 33" + i;
-//            testData.meals = JobData.DataGenerator.generateMeals(i);
-            testData.meals.clear();
-            switch (i) {
-                case 0:
-                    testData.meals.add("Las");
-                    testData.meals.add("M&C");
-                    testData.meals.add("M&C");
-                    testData.meals.add("Bol");
-                    break;
-                case 1:
-                    testData.meals.add("Las");
-                    testData.meals.add("Las");
-                    testData.meals.add("M&C");
-                    testData.meals.add("M&C");
-                    break;
-                case 2:
-                    testData.meals.add("Las");
-                    testData.meals.add("Las");
-                    testData.meals.add("Bol");
-                    testData.meals.add("Bol");
-                    break;
-                case 3:
-                    testData.meals.add("Bol");
-                    testData.meals.add("Bol");
-                    break;
-                case 4:
-                    testData.meals.add("M&C");
-                    testData.meals.add("M&C");
-                    testData.meals.add("M&C");
-                    testData.meals.add("M&C");
-                    break;
-                case 5:
-                    testData.meals.add("M&C");
-                    testData.meals.add("M&C");
-                    testData.meals.add("Bol");
-                    break;
-                default:
-                    testData.meals.add("Name:");
-                    break;
+            this.id = Integer.toString(i);
+            this.name = JobData.DataGenerator.generateName(i);
+            this.address = JobData.DataGenerator.generateAddress(i);
+            this.phone = "021 " + i + " 22 33" + i;
+            for(int index = 0; index < 3; index++) {
+                this.meals.put(generateMeals(i), generateMealQty(i));
             }
-//            newJobList.add(testData);
-            DatabaseHelper.addToDb("JobData", testData);
+            DatabaseHelper.addToDb(this);
         }
         //-----------
     }

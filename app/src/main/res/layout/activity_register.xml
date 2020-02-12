@@ -28,7 +28,6 @@
 
         <EditText
             android:id="@+id/editTextNewEmail"
-            android:theme="@style/TextTheme"
             android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
@@ -41,7 +40,6 @@
 
         <EditText
             android:id="@+id/editTextNewPassword"
-            android:theme="@style/TextTheme"
             android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
@@ -53,7 +51,6 @@
 
         <EditText
             android:id="@+id/editTextConfirmPassword"
-            android:theme="@style/TextTheme"
             android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
