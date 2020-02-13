@@ -13,27 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bellyful.bellyfulapp.Model.JobData;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecyclerAdapter.NewJobViewHolder>  {
 
     private LayoutInflater mInflater;
     private Context mContext;
-//    private ArrayList<JobModel> mJobArray;
-    private ArrayList<JobData> mDummyData;
+    private ArrayList<JobData> jobData;
 //    @NonNull
 //    private OnItemCheckListener onItemCheckListener;
     private OnItemCheckListener onItemClick;
 
 
 
-
-    NewJobsRecyclerAdapter(Context context, ArrayList<JobData> dummyArray, @NonNull OnItemCheckListener onItemCheckListener) {
+    //Constructor takes an ArrayList of job data as a parameter to fill the recycler
+    NewJobsRecyclerAdapter(Context context, ArrayList<JobData> jobData, @NonNull OnItemCheckListener onItemCheckListener) {
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
-        this.mDummyData = dummyArray;
+        this.jobData = jobData;
         this.onItemClick = onItemCheckListener;
     }
 
@@ -53,13 +49,13 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull final NewJobViewHolder viewHolder, int position) {
-//        JobData testData = new JobData(0); //For creating junk data
-        final JobData currentItem = mDummyData.get(position);
+        final JobData currentItem = jobData.get(position);
+
         if (viewHolder instanceof NewJobViewHolder) {
+            //Set checkbox listeners
             viewHolder.jobCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    viewHolder.jobCheckBox.setChecked(!viewHolder.jobCheckBox.isChecked()); /
                     if (viewHolder.jobCheckBox.isChecked()) {
                         onItemClick.onItemCheck(currentItem);
                     } else {
@@ -69,40 +65,23 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
             });
         }
 
-//        JobData currentItem = mDummyData.get(position);
-
+        //Clear the textViews to avoid left over text
         viewHolder.foodLabel.setText("");
         viewHolder.addressLabel.setText("");
         viewHolder.phoneLabel.setText("");
         viewHolder.foodLabel.setText("");
 
-//        viewHolder.nameLabel.setText(testData.generateName(position));
-//        viewHolder.addressLabel.setText(testData.generateAddress(position));
-//        viewHolder.phoneLabel.setText("021 " + position + " 22 33" + position);
-//        viewHolder.foodLabel.setText(testData.generateMeals(position));
+        //Fill textViews
         viewHolder.nameLabel.setText(currentItem.getName());
         viewHolder.addressLabel.setText(currentItem.getAddress());
         viewHolder.phoneLabel.setText(currentItem.getPhone());
 
-        //Count number of mMeals in the list and put them in a string
-//        Map<String, Integer> numMeals = new HashMap<>();
-//        for(int i = 0; i < currentItem.getMeals().size(); i++){
-//            int occurrences = Collections.frequency(currentItem.getMeals(), currentItem.getMeals().get(i));
-//            numMeals.put(currentItem.getMeals().get(i), occurrences);
-//        }
-//        StringBuilder mealString = new StringBuilder();
-//        for( String key : numMeals.keySet() ) {
-//            mealString.append(key).append("x");
-//            mealString.append(numMeals.get(key).toString()).append(" ");
-//        }
-
-        //Turns the meals HashMap into a string for the textView
+        //Turn the meals HashMap into a string for the textView
         StringBuilder mealString = new StringBuilder();
         for (String key : currentItem.getMeals().keySet()) {
             mealString.append(key).append("x");
             mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
         }
-
 
         viewHolder.foodLabel.setText(mealString);
 
@@ -110,9 +89,10 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
 
     @Override
     public int getItemCount() {
-        return mDummyData.size();
+        return jobData.size();
     }
 
+    //Standard viewHolder
     class NewJobViewHolder extends RecyclerView.ViewHolder{
 
         TextView nameLabel;
@@ -129,7 +109,7 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
             phoneLabel = itemView.findViewById(R.id.lblJobPhone);
             foodLabel = itemView.findViewById(R.id.lblJobFood);
             jobCheckBox = itemView.findViewById(R.id.checkBoxJob);
-            jobCheckBox.setClickable(false);
+            jobCheckBox.setClickable(false); //Each checkbox is assigned an individual OnclickListener in the adapter instead
         }
 
         public void setOnClickListener(View.OnClickListener onClickListener) {

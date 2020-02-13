@@ -54,7 +54,7 @@ public class NewJobsFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<JobData> mCurrentSelectedItems = new ArrayList<>();//Keeps a list of selected items
     private ArrayList<JobData> mJobsTaken = new ArrayList<>();
-    private ArrayList<JobData> mJobList = new ArrayList<>();
+    private ArrayList<JobData> mJobList = new ArrayList<>(); //List of new jobs
 
     public NewJobsFragment() {
         // Required empty public constructor
@@ -81,11 +81,6 @@ public class NewJobsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mJobList = getArguments().getParcelableArrayList("newJobList");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-
     }
 
     @Override
@@ -95,38 +90,16 @@ public class NewJobsFragment extends Fragment {
         if(args != null) {
             mJobList = args.getParcelableArrayList("newJobList");
         }
-        //TODO: Remove this
-//        //-----testing-----
-//        for(int i = 0; i < 5; i++) {
-//            JobData testData = new JobData(i);
-//            testData.mName = JobData.DataGenerator.generateName(i);
-//            testData.mAddress = JobData.DataGenerator.generateAddress(i);
-//            testData.mPhone = "021 " + i + " 22 33" + i;
-//            testData.mMeals = JobData.DataGenerator.generateMeals(i);
-//            mJobList.add(testData);
-//        }
-//        //-----------
+
         //Init NewJobRecycler
-        ViewGroup root = (ViewGroup)inflater.inflate(R.layout.fragment_new_jobs, container, false); // inflater.inflate(R.layout.fragment_new_jobs, null);
+        ViewGroup root = (ViewGroup)inflater.inflate(R.layout.fragment_new_jobs, container, false);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.NewJobRecycler);
         createRecyclerView();
 
-        // Inflate the layout for this fragment
-//        View v = inflater.inflate(R.layout.fragment_new_jobs, container, false);
-
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("New Deliveries");
         //Set the Toolbar
         Toolbar toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.main_toolbar);
         toolbar.setTitle(R.string.new_deliveries);
-        /*toolbar.setNavigationIcon(R.drawable.ic_back_button);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });*/
 
-//        return v;
         return root;
     }
 
@@ -135,25 +108,22 @@ public class NewJobsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button acceptJobButton = view.findViewById(R.id.btnAcceptJobs);
+        //OnClickListener for the accept button
         acceptJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                for(int i = 0; i < mCurrentSelectedItems.size(); i++){
-//                    mJobsTaken.add(mCurrentSelectedItems.get(i));
-//                    mJobList.remove(mCurrentSelectedItems.get(i));
-//                }
+            //"Are you sure?" popup dialogue
             new AlertDialog.Builder(getActivity())
                     .setTitle("Confirm Delivery")
                     .setMessage("Are you sure you want to take this delivery?")
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    //Specifying a listener allows you to take an action before dismissing the dialog.
+                    //The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         //Accept Job
                         public void onClick(DialogInterface dialog, int which) {
+                            //Loop through all the ticked items and move them into the CurrentJob collection
                             for(int i = 0; i < mCurrentSelectedItems.size(); i++){
                                 JobData currentItem = mCurrentSelectedItems.get(i);
-//                                mJobsTaken.add(currentItem);//Get a list of the selected jobs
-//                                passData(mJobsTaken.get(i)); //
                                 String id = currentItem.getID();
                                 DatabaseHelper.removeFromDbByID(currentItem, id);
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -162,19 +132,15 @@ public class NewJobsFragment extends Fragment {
                                 AcceptedJobModel acceptedJob = new AcceptedJobModel();
                                 acceptedJob.fillObject(currentItem.getID(), userID, "outstanding", currentItem.getName(),
                                         currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
-//                                AcceptedJobModel acceptedJob = new AcceptedJobModel(currentItem.getID(), userID, currentItem.getName(),
-//                                        currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
                                 DatabaseHelper.addToDb(acceptedJob);
                                 mJobList.remove(mCurrentSelectedItems.get(i));
                                 Log.d("deletion", id + " was removed");
                             }
-//                            passData(mJobsTaken);
                             createRecyclerView();
                         }
                     })
                     // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
-//                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
             }
         });
@@ -233,7 +199,7 @@ public class NewJobsFragment extends Fragment {
     private void createRecyclerView(){
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-//        mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity(), test.dummyJobs);
+        //The mJobList is a parameter of the adapter to pass the list to the recycler
         mRecyclerAdapter = new NewJobsRecyclerAdapter(getActivity(), mJobList, new NewJobsRecyclerAdapter.OnItemCheckListener() {
             @Override
             public void onItemCheck(JobData item) {
@@ -248,11 +214,12 @@ public class NewJobsFragment extends Fragment {
         mRecyclerView.setAdapter(mRecyclerAdapter);
     }
 
-
+    //Interface to pass data to the main activity
     public interface OnDataPass{
         void onDataPass(AcceptedJobModel selectedItems);
     }
 
+    //Part of the interface
     public void passData(AcceptedJobModel data) {
         dataPasser.onDataPass(data);
     }

@@ -35,11 +35,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements FreezersFragment.OnListFragmentInteractionListener, FreezersUpdateFragment.OnListFragmentInteractionListener, FreezerConfirmFragment.OnFragmentInteractionListener, JobSubmitFragment.OnJobSubmitFragmentInteractionListener, NewJobsFragment.OnDataPass {
 
     BottomNavigationView bottomNavigationView; // Bottom navigation bar
-    private ArrayList<JobData> newJobList = new ArrayList<>();
-    private ArrayList<FreezerModel> freezerList = new ArrayList<>();
-    protected ArrayList <AcceptedJobModel> selectedJobList = new ArrayList<>();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
-    private FirebaseDatabase database = FirebaseDatabase.getInstance(); //
+    private ArrayList<JobData> newJobList = new ArrayList<>(); // New jobs to pass to the NewJobFragment
+    private ArrayList<FreezerModel> freezerList = new ArrayList<>(); // Freezer info to pass to the FreezerFragment
+    protected ArrayList <AcceptedJobModel> selectedJobList = new ArrayList<>(); // Jobs for the CurrentJobFragment
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance(); // Initialize an instance of Firebase Auth
+    private FirebaseDatabase database = FirebaseDatabase.getInstance(); // Initialize an instance of the database
 
     Toolbar mToolbar;
     Fragment ft;
@@ -53,14 +53,11 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        JobData testData = new JobData();
-//        FreezerModel freezerTestData = new FreezerModel();
-
+        //Database listeners to fill the ArrayLists above
         setJobUpdateListener();
         setFreezerUpdateListen();
         setAcceptedJobUpdateListener();
         setCompletedJobUpdateListener();
-
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
@@ -70,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 
     }
 
+    //Deals with bottom navigation bar interaction
+    //Loads appropriate fragments on click
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
                     loadNewJobsFragment();
                     return true;
                 case R.id.action_current_jobs:
+                    //Bundle contains jobs selected in the newJobFragment
                     Bundle currentJobsBundle = new Bundle();
                     currentJobsBundle.putParcelableArrayList("selectedJobList", selectedJobList);
                     ft = new CurrentJobsFragment();
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         return super.onOptionsItemSelected(item);
     }
 
+    //Generalised function to load fragments
     public void loadFragment(Fragment fragment) {
         //For making loading fragments easier and cleaner
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         ft.commit();
     }
 
+    //Checks users are logged in then updates the UI accordingly
     private void updateUI(FirebaseUser currentUser){
         if(currentUser == null){
             //User not logged in
@@ -163,28 +165,19 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 
     }
 
-    public void createDbEntries(){
-        MealModel meal = new MealModel();
-        meal.setName("Test");
-        meal.setId("3");
-//        meal.addToDb(meal);
-    }
-
+    //Update listener for new jobs
     public void setJobUpdateListener(){
-//        final ArrayList<JobData> JobList = new ArrayList<>();
-//        ArrayList list = new ArrayList();
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //First clear the job list to avoid duplicates
                 newJobList.clear();
-                int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //Load each document into the ArrayList. The getValue parameter tells Firebase the class structure
                     newJobList.add(ds.getValue(JobData.class));
-//                    String mID = ds.child(collectionType).getValue(String.class);
-//                    Log.d("JobData", newJobList.get(index).getName());
-                    ++index;
                 }
-//                loadNewJobsFragment();
+                //This is the first fragment to load so it needs to be updated immediately
+                loadNewJobsFragment();
             }
 
             @Override
@@ -194,25 +187,23 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
             }
         };
 
+        //Attach the listener to a database reference.
+        //The listener is listening for a collection called "JobData"
         DatabaseReference listenerRef = database.getReference().child("JobData");
         listenerRef.addValueEventListener(valueEventListener);
     }
 
+    //The rest of these listeners work exactly the same as above. Could possibly be refactored.
     public void setAcceptedJobUpdateListener(){
-//        final ArrayList<JobData> JobList = new ArrayList<>();
-//        ArrayList list = new ArrayList();
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 selectedJobList.clear();
-                int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds != null) {
                         selectedJobList.add(ds.getValue(AcceptedJobModel.class));
-                        ++index;
                     }
                 }
-//                loadNewJobsFragment();
             }
 
             @Override
@@ -227,20 +218,15 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
     }
 
     public void setCompletedJobUpdateListener(){
-//        final ArrayList<JobData> JobList = new ArrayList<>();
-//        ArrayList list = new ArrayList();
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 selectedJobList.clear();
-                int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds != null) {
                         selectedJobList.add(ds.getValue(AcceptedJobModel.class));
-                        ++index;
                     }
                 }
-//                loadNewJobsFragment();
             }
 
             @Override
@@ -259,20 +245,15 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 freezerList.clear();
-                int index = 0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     freezerList.add(ds.getValue(FreezerModel.class));
-//                    String mID = ds.child(collectionType).getValue(String.class);
-                    Log.d("DB", freezerList.get(index).getName());
-                    ++index;
                 }
-//                loadFreezerFragment();
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w("DB", "Failed to read value.", error.toException());
+                Log.w("Freezer", "Failed to read value.", error.toException());
             }
         };
 
@@ -280,7 +261,8 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         listenerRef.addValueEventListener(valueEventListener);
     }
 
-
+    //Function to load the NewJobsFragment
+    //This is it's own function because it's used a couple of times
     public void loadNewJobsFragment(){
         //Send jobData to the fragment
         Bundle newJobsBundle = new Bundle();
@@ -290,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         loadFragment(ft);
     }
 
+    //Same as above
     public void loadFreezerFragment(){
         Bundle freezerBundle = new Bundle();
         freezerBundle.putParcelableArrayList("freezerList", freezerList);
@@ -298,6 +281,8 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
         loadFragment(ft);
     }
 
+    //Implements interface from NewJobsFragment.OnDataPass
+    //Used to pass accepted jobs between the mainActivity and the NewJobFragment
     @Override
     public void onDataPass(AcceptedJobModel selectedItems) {
         selectedJobList.add(selectedItems);

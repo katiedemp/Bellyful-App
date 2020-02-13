@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth; //Firebase Auth instance
-    private final String TAG = "debug";
+    private final String TAG = "debug"; //Log tag
 
     //Init views
     private TextView goToLogin;

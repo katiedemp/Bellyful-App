@@ -12,8 +12,6 @@ import static com.bellyful.bellyfulapp.Model.FreezerModel.generateMeals;
 
 public class JobData extends DatabaseHelper implements Parcelable {
 
-//    public ArrayList<JobModel> mJobArray = new ArrayList<>();
-//    public ArrayList<JobData> dummyJobs = new ArrayList<>();
 
     //    public JobData testData;
     private String id;
@@ -22,6 +20,7 @@ public class JobData extends DatabaseHelper implements Parcelable {
     private String phone;
     public Map<String, Integer> meals = new HashMap<>();
 
+    //Empty constructor required for Firebase
     public JobData(){
         super("JobData");
 //        createTestData();
@@ -32,43 +31,15 @@ public class JobData extends DatabaseHelper implements Parcelable {
     }
 
 
-    //TODO: Remove later. This constructor is for testing
     public JobData(int i){
+        //Use for testing/errors
     }
-//
-//    public JobData(int num){
-////        createJobs(num);
-//        createDummyData(num);
-//    }
 
-//    public void createDummyData(int i){
-//        JobData testData = new JobData();
-//        testData.name = DataGenerator.generateName(i);
-//        testData.address = DataGenerator.generateAddress(i);
-//        testData.phone = "021 " + i + " 22 33" + i;
-//        testData.meals = DataGenerator.generateMeals(i);
-//    }
-
-//    public void createJobs(int num){
-////        for(int i = 0; i < num; i++){
-////            JobModel newJob = new JobModel();
-////            newJob.setId(Integer.toString(i));
-////            newJob.setClientId(Integer.toString(i));
-////            newJob.setReferralId("1");
-////            newJob.setFreezerId("1");
-////            newJob.setMealId("1");
-////            newJob.setNumMealsTaken(4);
-////            newJob.setStatus("order placed");
-////            newJob.setJobInfo("None");
-////            mJobArray.add(newJob);
-////        }
-////    }
-
+    // -------------- The following is required to make JobData parcelable -------------
     private JobData(Parcel in) {
         name = in.readString();
         address = in.readString();
         phone = in.readString();
-//        in.readHashMap(meals);
     }
 
     public static final Parcelable.Creator<JobData> CREATOR = new Parcelable.Creator<JobData>() {
@@ -95,7 +66,9 @@ public class JobData extends DatabaseHelper implements Parcelable {
         parcel.writeString(phone);
         parcel.writeMap(meals);
     }
+    //------------------------End of parcelable functions---------------------------------------------
 
+    //Getters and setters
     public String getID() {
         return id;
     }
@@ -137,9 +110,7 @@ public class JobData extends DatabaseHelper implements Parcelable {
     }
 
 
-    //USED FOR TEST DATA
-    //TODO: DELETE THIS LATER
-    //_______________________________________________________________
+    //--------------- USED FOR CREATING TEST DATA (this can be removed at any time)------------------
     static class DataGenerator{
         public static String generateName(int index){
             switch (index) {
@@ -200,8 +171,6 @@ public class JobData extends DatabaseHelper implements Parcelable {
     }
 
     public void createTestData(){
-        //-----testing-----
-//        JobData testData = new JobData(1);
         for(int i = 0; i < 5; i++) {
             this.id = Integer.toString(i);
             this.name = JobData.DataGenerator.generateName(i);
@@ -212,6 +181,6 @@ public class JobData extends DatabaseHelper implements Parcelable {
             }
             DatabaseHelper.addToDb(this);
         }
-        //-----------
     }
+    //--------------------END OF TESTING FUNCTIONS-----------------------------------
 }

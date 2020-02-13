@@ -68,10 +68,6 @@ public class CurrentJobsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mPageNum = getArguments().getInt(PAGE_NUM);
-//            mTitle = getArguments().getString(PAGE_TITLE);
-//        }
 
     }
 
@@ -112,14 +108,14 @@ public class CurrentJobsFragment extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.currentJobTabLayout);
         CurrentJobViewPagerAdapter viewPagerAdapter = new CurrentJobViewPagerAdapter(getChildFragmentManager(), args);
 
-//        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
+        //Add fragments to the viewPager. BellyFul might want the commented out ones later
+        //When adding new fragments to the pager remember to change the NUM_PAGES constant in CurrentJobViewPagerAdapter.class
         viewPagerAdapter.addFragment(new OutstandingJobTab(), "My Outstanding");
-//        viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
         viewPagerAdapter.addFragment(new BranchJobTab(), "Completed");
+//        viewPagerAdapter.addFragment(new ConfirmedJobTab(), "My Confirmed");
+//        viewPagerAdapter.addFragment(new BranchJobTab(), "Branch Outstanding");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-
 
     }
 
