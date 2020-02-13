@@ -25,17 +25,9 @@ import java.util.Map;
  */
 public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreezersRecyclerViewAdapter.ViewHolder> {
 
-//    private final List<FreezerItem> mValues;
-    //TODO: Uncomment to use database values
     private final List<FreezerModel> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-//    public MyFreezersRecyclerViewAdapter(List<FreezerItem> items, OnListFragmentInteractionListener listener) {
-//        mValues = items;
-//        mListener = listener;
-//    }
-
-    //TODO: Uncomment to use database values
     public MyFreezersRecyclerViewAdapter(List<FreezerModel> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -50,13 +42,12 @@ public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreeze
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-//        holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mNameView.setText(mValues.get(position).name);
         holder.mAddressView.setText(mValues.get(position).address);
         holder.mPhoneView.setText(mValues.get(position).phone);
 
-        //TODO: Uncomment to use database values
+        //Get strings from meals HashMap
         ArrayList<String> meal = new ArrayList<>();
         ArrayList<Integer> qty = new ArrayList<>();
         for(String key : mValues.get(position).meals.keySet()){
@@ -71,12 +62,6 @@ public class MyFreezersRecyclerViewAdapter extends RecyclerView.Adapter<MyFreeze
         holder.mMealQty2View.setText(Integer.toString(qty.get(1)));
         holder.mMealQty3View.setText(Integer.toString(qty.get(2)));
 
-//        holder.mMeal1View.setText(mValues.get(position).meal1);
-//        holder.mMeal2View.setText(mValues.get(position).meal2);
-//        holder.mMeal3View.setText(mValues.get(position).meal3);
-//        holder.mMealQty1View.setText(mValues.get(position).mealQty1);
-//        holder.mMealQty2View.setText(mValues.get(position).mealQty2);
-//        holder.mMealQty3View.setText(mValues.get(position).mealQty3);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

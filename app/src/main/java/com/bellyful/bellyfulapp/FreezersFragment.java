@@ -93,9 +93,7 @@ public class FreezersFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-//            recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(FreezersContent.ITEMS, mListener));
 
-            //TODO: Uncomment to use database values
             recyclerView.setAdapter(new MyFreezersRecyclerViewAdapter(mFreezerList, mListener));
         }
         return view;
