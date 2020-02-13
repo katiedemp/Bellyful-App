@@ -13,6 +13,7 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
 
     private String id;
     private String user;
+    private String status;
     private String name;
     private String address;
     private String phone;
@@ -23,9 +24,10 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
 //        createTestData();
     }
 
-    public void fillObject(String id, String user, String name, String address, String phone, Map<String, Integer> meals){
+    public void fillObject(String id, String user, String status, String name, String address, String phone, Map<String, Integer> meals){
         this.id = id;
         this.user = user;
+        this.status = status;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -33,6 +35,9 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
     }
 
     private AcceptedJobModel(Parcel in) {
+        id = in.readString();
+        user = in.readString();
+        status = in.readString();
         name = in.readString();
         address = in.readString();
         phone = in.readString();
@@ -58,6 +63,8 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
+        parcel.writeString(user);
+        parcel.writeString(status);
         parcel.writeString(address);
         parcel.writeString(phone);
         parcel.writeMap(meals);
@@ -69,6 +76,14 @@ public class AcceptedJobModel extends DatabaseHelper implements Parcelable {
 
     public String getUser() {
         return user;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setUser(String mUserID) {

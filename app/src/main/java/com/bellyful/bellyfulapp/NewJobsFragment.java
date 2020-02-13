@@ -160,7 +160,7 @@ public class NewJobsFragment extends Fragment {
 
                                 String userID = user.getUid();
                                 AcceptedJobModel acceptedJob = new AcceptedJobModel();
-                                acceptedJob.fillObject(currentItem.getID(), userID, currentItem.getName(),
+                                acceptedJob.fillObject(currentItem.getID(), userID, "outstanding", currentItem.getName(),
                                         currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
 //                                AcceptedJobModel acceptedJob = new AcceptedJobModel(currentItem.getID(), userID, currentItem.getName(),
 //                                        currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());

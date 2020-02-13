@@ -96,6 +96,7 @@ public class NewJobsRecyclerAdapter extends RecyclerView.Adapter<NewJobsRecycler
 //            mealString.append(numMeals.get(key).toString()).append(" ");
 //        }
 
+        //Turns the meals HashMap into a string for the textView
         StringBuilder mealString = new StringBuilder();
         for (String key : currentItem.getMeals().keySet()) {
             mealString.append(key).append("x");

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.bellyful.bellyfulapp.CurrentJobsUI.BranchJobTab;
 import com.bellyful.bellyfulapp.CurrentJobsUI.CurrentJobViewPagerAdapter;
 import com.bellyful.bellyfulapp.CurrentJobsUI.OutstandingJobTab;
+import com.bellyful.bellyfulapp.Model.CompletedJobModel;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.google.android.material.tabs.TabLayout;
 
@@ -163,8 +164,8 @@ public class CurrentJobsFragment extends Fragment {
     }
 
     public static class dataChangedEvent {
-        public ArrayList<JobData> mNewData;
-        public dataChangedEvent(ArrayList<JobData> newData) {
+        public ArrayList<CompletedJobModel> mNewData;
+        public dataChangedEvent(ArrayList<CompletedJobModel> newData) {
             this.mNewData = newData;
         }
     }

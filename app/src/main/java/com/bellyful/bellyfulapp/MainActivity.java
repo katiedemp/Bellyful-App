@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements FreezersFragment.
 //                    Log.d("JobData", newJobList.get(index).getName());
                     ++index;
                 }
-                loadNewJobsFragment();
+//                loadNewJobsFragment();
             }
 
             @Override

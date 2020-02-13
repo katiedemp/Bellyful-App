@@ -13,6 +13,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bellyful.bellyfulapp.Model.CompletedJobModel;
 import com.bellyful.bellyfulapp.Model.JobData;
 import com.bellyful.bellyfulapp.R;
 
@@ -26,11 +27,11 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
     private LayoutInflater mInflater;
     private Context mContext;
     private int mCode; // 1 = Outstanding, 2 = Complete
-    private ArrayList<JobData> mCompletedJobs;
+    private ArrayList<CompletedJobModel> mCompletedJobs;
     private FragmentManager mFragmentManager;
 
 
-    CompletedJobsRecyclerAdapter(Context context, ArrayList<JobData> itemsList, FragmentManager fragmentManager) {
+    CompletedJobsRecyclerAdapter(Context context, ArrayList<CompletedJobModel> itemsList, FragmentManager fragmentManager) {
         //Load outstanding jobs
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
@@ -54,24 +55,12 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
         viewHolder.phoneLabel.setText("");
         viewHolder.nameLabel.setText("");
         if (mCompletedJobs.size() > 0) {
-            final JobData currentItem = mCompletedJobs.get(position);
+            final CompletedJobModel currentItem = mCompletedJobs.get(position);
 //            ArrayList numMeals = new ArrayList();
             viewHolder.nameLabel.setText(currentItem.getName());
             viewHolder.addressLabel.setText(currentItem.getAddress());
             viewHolder.phoneLabel.setText(currentItem.getPhone());
 
-//            //Count number of mMeals in the list and put them in a string
-//            Map<String, Integer> numMeals = new HashMap<>();
-//            for (int i = 0; i < currentItem.getMeals().size(); i++) {
-//                int occurrences = Collections.frequency(currentItem.getMeals(), currentItem.getMeals().get(i));
-//                numMeals.put(currentItem.getMeals().get(i), occurrences);
-//            }
-//                    ArrayList<String> meal = new ArrayList<>();
-//        ArrayList<Integer> qty = new ArrayList<>();
-//        for(String key : currentItem.getMeals().keySet()){
-//            meal.add(key);
-//            qty.add(currentItem.getMeals().get(key));
-//        }
             StringBuilder mealString = new StringBuilder();
             for (String key : currentItem.getMeals().keySet()) {
                 mealString.append(key).append("x");
@@ -85,23 +74,6 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
             viewHolder.phoneLabel.setText("");
             viewHolder.nameLabel.setText("");
         }
-
-//        if(mCode == 1){
-//            viewHolder.startButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    viewHolder.startButton.setVisibility(View.GONE);
-//                    viewHolder.completeButton.setVisibility(View.VISIBLE);
-//                }
-//            });
-//            viewHolder.completeButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mOutstandingJobs.remove(position);
-//                    notifyDataSetChanged();
-//                }
-//            });
-//        }
     }
 
     @Override
