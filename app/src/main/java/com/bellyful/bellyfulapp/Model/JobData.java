@@ -12,8 +12,7 @@ import static com.bellyful.bellyfulapp.Model.FreezerModel.generateMeals;
 
 public class JobData extends DatabaseHelper implements Parcelable {
 
-
-    //    public JobData testData;
+    //These member variables become data fields in the DB
     private String id;
     private String name;
     private String address;

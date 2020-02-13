@@ -9,13 +9,14 @@ import java.util.Map;
 
 public class FreezerModel extends DatabaseHelper implements Parcelable {
 
+    //These member variables become data fields in the DB
     public String id;
     public String name;
     public String address;
     public String phone;
-//    public ArrayList<String> meals = new ArrayList<>();
     public Map<String, Integer> meals = new HashMap<>();
 
+    //Empty constructor required for Firebase
     public FreezerModel(){
         super("Freezer");
 //        createData();
@@ -24,6 +25,42 @@ public class FreezerModel extends DatabaseHelper implements Parcelable {
     public FreezerModel(int i) {
     }
 
+
+    // -------------- The following is required to make the class parcelable -------------
+    private FreezerModel(Parcel in) {
+        name = in.readString();
+        address = in.readString();
+        phone = in.readString();
+    }
+
+    public static final Parcelable.Creator<FreezerModel> CREATOR = new Parcelable.Creator<FreezerModel>() {
+        @Override
+        public FreezerModel createFromParcel(Parcel in) {
+            return new FreezerModel(in);
+        }
+
+        @Override
+        public FreezerModel[] newArray(int size) {
+            return new FreezerModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(address);
+        parcel.writeString(phone);
+        parcel.writeMap(meals);
+    }
+    //------------------------End of parcelable functions---------------------------------------------
+
+
+    //Getters and setters
     public String getId() {
         return id;
     }
@@ -44,6 +81,7 @@ public class FreezerModel extends DatabaseHelper implements Parcelable {
         return meals;
     }
 
+    //---------------THIS IS FOR TESTING (Can be removed at any time)---------------------
     //TODO: REMOVE. Test stuff
     public static String generateName(int index){
         switch (index) {
@@ -144,35 +182,6 @@ public class FreezerModel extends DatabaseHelper implements Parcelable {
         }
     }
 
-    private FreezerModel(Parcel in) {
-        name = in.readString();
-        address = in.readString();
-        phone = in.readString();
-//        in.readStringList(meals);
-    }
+    //-------------------End of testing functions------------------------------
 
-    public static final Parcelable.Creator<FreezerModel> CREATOR = new Parcelable.Creator<FreezerModel>() {
-        @Override
-        public FreezerModel createFromParcel(Parcel in) {
-            return new FreezerModel(in);
-        }
-
-        @Override
-        public FreezerModel[] newArray(int size) {
-            return new FreezerModel[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(address);
-        parcel.writeString(phone);
-        parcel.writeMap(meals);
-    }
 }

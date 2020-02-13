@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class ConfirmedJobTab extends Fragment {
 
+    //This class is unused at the moment, but Bellyful wants it added
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecyclerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;

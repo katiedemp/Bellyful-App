@@ -58,6 +58,8 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
     @Override
     public NewJobViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewGroup viewGroup;
+        //Was going to use this adapter for multiple fragments but it caused a lot of issues.
+        //Only use code 1 for now
         if(mCode == 0){
             viewGroup = (ViewGroup) mInflater.inflate((R.layout.list_item_tab_confirmed), parent, false);
         }else if(mCode == 1){
@@ -81,69 +83,26 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         if(mCode == 1) {
             if (mOutstandingJobs.size() > 0) {
                 final AcceptedJobModel currentItem = mOutstandingJobs.get(position);
-//            ArrayList numMeals = new ArrayList();
                 viewHolder.nameLabel.setText(currentItem.getName());
                 viewHolder.addressLabel.setText(currentItem.getAddress());
                 viewHolder.phoneLabel.setText(currentItem.getPhone());
 
+                //Build string from meal HashMap
                 StringBuilder mealString = new StringBuilder();
                 for (String key : currentItem.getMeals().keySet()) {
                     mealString.append(key).append("x");
                     mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
                 }
 
-
                 viewHolder.foodLabel.setText(mealString);
             }
         }
-//        else if(mCode == 2){
-//            if (mCompletedJobs.size() > 0) {
-//                final AcceptedJobModel currentItem = mCompletedJobs.get(position);
-////            ArrayList numMeals = new ArrayList();
-//                viewHolder.nameLabel.setText(currentItem.getName());
-//                viewHolder.addressLabel.setText(currentItem.getAddress());
-//                viewHolder.phoneLabel.setText(currentItem.getPhone());
-//
-//                StringBuilder mealString = new StringBuilder();
-//                for (String key : currentItem.getMeals().keySet()) {
-//                    mealString.append(key).append("x");
-//                    mealString.append(currentItem.getMeals().get(key).toString()).append(" ");
-//                }
-//
-//
-//                viewHolder.foodLabel.setText(mealString);
-//            }else{
-//                viewHolder.foodLabel.setText("");
-//                viewHolder.addressLabel.setText("");
-//                viewHolder.phoneLabel.setText("");
-//                viewHolder.nameLabel.setText("");
-//            }
-//        }
-
-//        if(mCode == 1){
-//            viewHolder.startButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    viewHolder.startButton.setVisibility(View.GONE);
-//                    viewHolder.completeButton.setVisibility(View.VISIBLE);
-//                }
-//            });
-//            viewHolder.completeButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mOutstandingJobs.remove(position);
-//                    notifyDataSetChanged();
-//                }
-//            });
-//        }
     }
 
     @Override
     public int getItemCount() {
         if(mCode == 1) {
             return mOutstandingJobs.size();
-        }else if (mCode == 2){
-            return mCompletedJobs.size();
         }
         return 0;
     }
@@ -166,93 +125,96 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
             startButton = itemView.findViewById(R.id.btnStart);
             completeButton = itemView.findViewById(R.id.btnComplete);
 
-            //Dropdown button for outstanding jobs
-            if(mCode == 1) {
-                final Button dropDownButton = itemView.findViewById(R.id.btnOptions);
-
-                startButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AcceptedJobModel currentItem = mOutstandingJobs.get(getAdapterPosition());
-                        String id = currentItem.getId();
-                        DatabaseHelper.removeFromDbByID(currentItem, id);
-
-                        mOutstandingJobs.get(getAdapterPosition()).setStatus("in progress");
-                        currentItem.setStatus("in progress");
-
-                        DatabaseHelper.addToDb(currentItem);
-
-                        startButton.setVisibility(View.GONE);
-                        completeButton.setVisibility(View.VISIBLE);
-                        notifyDataSetChanged();
-                    }
-                });
-                completeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AcceptedJobModel currentItem = mOutstandingJobs.get(getAdapterPosition());
-                        String id = currentItem.getId();
-                        String user = currentItem.getUser();
-                        DatabaseHelper.removeFromDbByID(currentItem, id);
 
 
-                        CompletedJobModel completedJob = new CompletedJobModel();
-                        completedJob.fillObject(currentItem.getId(), user, currentItem.getName(),
-                                    currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
+            final Button dropDownButton = itemView.findViewById(R.id.btnOptions);
 
-//                        completedJob = mOutstandingJobs.get(getAdapterPosition());
+            //Handles Start(delivery) click
+            startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AcceptedJobModel currentItem = mOutstandingJobs.get(getAdapterPosition());
+                    String id = currentItem.getId();
+                    DatabaseHelper.removeFromDbByID(currentItem, id);
 
-                        DatabaseHelper.addToDb(completedJob);
-                        String outstandingID = mOutstandingJobs.get(getAdapterPosition()).getId();
-                        DatabaseHelper.removeFromDbByID(mOutstandingJobs.get(getAdapterPosition()), outstandingID);
+                    mOutstandingJobs.get(getAdapterPosition()).setStatus("in progress");
+                    currentItem.setStatus("in progress");
 
-                        mCompletedJobs.add(completedJob);
-                        mOutstandingJobs.remove(getAdapterPosition());
+                    DatabaseHelper.addToDb(currentItem);
 
-                        bus.post(new CurrentJobsFragment.dataChangedEvent(mCompletedJobs));
+                    startButton.setVisibility(View.GONE);
+                    completeButton.setVisibility(View.VISIBLE);
+                    notifyDataSetChanged();
+                }
+            });
 
-                        notifyDataSetChanged();
-                        startButton.setVisibility(View.VISIBLE);
-                        completeButton.setVisibility(View.GONE);
-                    }
-                });
+            //Handles Complete(delivery) click
+            completeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AcceptedJobModel currentItem = mOutstandingJobs.get(getAdapterPosition());
+                    String id = currentItem.getId();
+                    String user = currentItem.getUser();
+                    DatabaseHelper.removeFromDbByID(currentItem, id);
 
-                dropDownButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //creating a popup menu
-                        PopupMenu popup = new PopupMenu(mContext, dropDownButton);
-                        //inflating menu from xml resource
-                        popup.inflate(R.menu.job_popup_menu);
-                        //adding click listener
-                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.menuItemCall:
-                                        //handle menu1 click
-                                        return true;
-                                    case R.id.menuItemText:
-                                        //handle menu2 click
-                                        return true;
-                                    case R.id.moreOptions:
+
+                    CompletedJobModel completedJob = new CompletedJobModel();
+                    completedJob.fillObject(currentItem.getId(), user, currentItem.getName(),
+                                currentItem.getAddress(), currentItem.getPhone(), currentItem.getMeals());
+
+
+                    DatabaseHelper.addToDb(completedJob);
+                    String outstandingID = mOutstandingJobs.get(getAdapterPosition()).getId();
+                    DatabaseHelper.removeFromDbByID(mOutstandingJobs.get(getAdapterPosition()), outstandingID);
+
+                    mCompletedJobs.add(completedJob);
+                    mOutstandingJobs.remove(getAdapterPosition());
+
+                    bus.post(new CurrentJobsFragment.dataChangedEvent(mCompletedJobs));
+
+                    notifyDataSetChanged();
+                    startButton.setVisibility(View.VISIBLE);
+                    completeButton.setVisibility(View.GONE);
+                }
+            });
+
+            //Drop down button
+            dropDownButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(mContext, dropDownButton);
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.job_popup_menu);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.menuItemCall:
+                                    //handle menu1 click
+                                    return true;
+                                case R.id.menuItemText:
+                                    //handle menu2 click
+                                    return true;
+                                case R.id.moreOptions:
 //                                        OutstandingJobActivity nextFrag= new OutstandingJobActivity();
 //                                        FragmentTransaction ft = mFragmentManager.beginTransaction();
 //                                        ft.replace(R.mID.frameContainer, nextFrag);
 //                                        ft.addToBackStack(null);
 //                                        ft.commit();
-                                        return true;
-                                    default:
-                                        return false;
-                                }
+                                    return true;
+                                default:
+                                    return false;
                             }
-                        });
-                        //displaying the popup
-                        popup.show();
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
 
-                    }
-                });
-            }
+                }
+            });
+
         }
     }
 }

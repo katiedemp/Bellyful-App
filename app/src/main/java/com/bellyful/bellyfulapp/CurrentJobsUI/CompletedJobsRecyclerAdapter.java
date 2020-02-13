@@ -26,7 +26,7 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
 
     private LayoutInflater mInflater;
     private Context mContext;
-    private int mCode; // 1 = Outstanding, 2 = Complete
+    private int mCode; // 1 = Outstanding, 2 = Complete. Unused at the moment
     private ArrayList<CompletedJobModel> mCompletedJobs;
     private FragmentManager mFragmentManager;
 
@@ -50,17 +50,19 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
 
     @Override
     public void onBindViewHolder(@NonNull final NewJobViewHolder viewHolder, final int position) {
+        //Clear previous text
         viewHolder.foodLabel.setText("");
         viewHolder.addressLabel.setText("");
         viewHolder.phoneLabel.setText("");
         viewHolder.nameLabel.setText("");
+
         if (mCompletedJobs.size() > 0) {
             final CompletedJobModel currentItem = mCompletedJobs.get(position);
-//            ArrayList numMeals = new ArrayList();
             viewHolder.nameLabel.setText(currentItem.getName());
             viewHolder.addressLabel.setText(currentItem.getAddress());
             viewHolder.phoneLabel.setText(currentItem.getPhone());
 
+            //Build string from meal HashMap
             StringBuilder mealString = new StringBuilder();
             for (String key : currentItem.getMeals().keySet()) {
                 mealString.append(key).append("x");
@@ -121,11 +123,7 @@ public class CompletedJobsRecyclerAdapter extends RecyclerView.Adapter<Completed
                                     //handle menu2 click
                                     return true;
                                 case R.id.moreOptions:
-//                                        OutstandingJobActivity nextFrag= new OutstandingJobActivity();
-//                                        FragmentTransaction ft = mFragmentManager.beginTransaction();
-//                                        ft.replace(R.mID.frameContainer, nextFrag);
-//                                        ft.addToBackStack(null);
-//                                        ft.commit();
+                                    //handle moreOptions click
                                     return true;
                                 default:
                                     return false;

@@ -18,10 +18,14 @@ import com.google.firebase.database.ValueEventListener;
 
 /*
     Abstract class to provide interaction with the realtime database.
-    Each model that extends this class represents a collection in the db
+    Each model that extends this class represents a collection in the db.
+
+    If variable members are added or removed from children of this class you need to clear previous entries of
+    that collection from the database, otherwise they won't be uploaded/downloaded properly.
  */
 public abstract class DatabaseHelper{
 
+    //Exclude tag stops these variables from being stored in the DB
     @Exclude
     protected String collectionType;
     @Exclude
@@ -42,6 +46,10 @@ public abstract class DatabaseHelper{
         ref = database.getReference().child(collectionType);
     }
 
+    /*
+       Polymorphic function. You can pass any instance of a class that extends DatabaseHelper
+       as a parameter and it should add it to the Database.
+    * */
     public static void addToDb(final DatabaseHelper newDocument) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference().child(newDocument.collectionType);
@@ -61,6 +69,7 @@ public abstract class DatabaseHelper{
         });
     }
 
+    //Similar to the addToDB function. Will remove a document based on the given id
     public static void removeFromDbByID(DatabaseHelper document, String id){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference().child(document.collectionType);

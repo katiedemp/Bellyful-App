@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class CompletedJobModel extends DatabaseHelper implements Parcelable {
 
+    //These member variables become data fields in the DB
     private String id;
     private String user;
     private String name;
@@ -18,9 +19,10 @@ public class CompletedJobModel extends DatabaseHelper implements Parcelable {
     private String phone;
     public Map<String, Integer> meals = new HashMap<>();
 
+    //Empty constructor required for Firebase
+
     public CompletedJobModel(){
         super("CompletedJob");
-//        createTestData();
     }
 
     public void fillObject(String id, String user, String name, String address, String phone, Map<String, Integer> meals){
@@ -31,6 +33,8 @@ public class CompletedJobModel extends DatabaseHelper implements Parcelable {
         this.phone = phone;
         this.meals = meals;
     }
+
+    // -------------- The following is required to make the class parcelable -------------
 
     private CompletedJobModel(Parcel in) {
         name = in.readString();
@@ -63,6 +67,9 @@ public class CompletedJobModel extends DatabaseHelper implements Parcelable {
         parcel.writeMap(meals);
     }
 
+    //------------------------End of parcelable functions---------------------------------------------
+
+    //Getters and setters
     public String getId() {
         return id;
     }

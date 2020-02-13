@@ -24,7 +24,7 @@ public class CompletedJobTab extends Fragment {
     private RecyclerView.Adapter mRecyclerAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<CompletedJobModel> mCompleteItems = new ArrayList<>();
-    private EventBus bus = EventBus.getDefault();
+    private EventBus bus = EventBus.getDefault(); //Used to pass data between the Outstanding tab
 
 
     public CompletedJobTab(){
@@ -62,6 +62,13 @@ public class CompletedJobTab extends Fragment {
         mRecyclerView.setAdapter(mRecyclerAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mRecyclerAdapter = new CompletedJobsRecyclerAdapter(getActivity(), mCompleteItems, getFragmentManager());
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+    }
 
 
 

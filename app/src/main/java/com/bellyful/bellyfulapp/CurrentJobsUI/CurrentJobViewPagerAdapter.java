@@ -18,7 +18,7 @@ public class CurrentJobViewPagerAdapter extends FragmentPagerAdapter {
     private final ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private final ArrayList<String> mFragmentTitleList = new ArrayList<>();
 
-    private static int NUM_PAGES = 2;
+    private static int NUM_PAGES = 2; //Change this if you add/remove tabs
     private final Bundle fragmentBundle;
     private FragmentManager mFragmentManger;
 
